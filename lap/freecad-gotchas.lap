@@ -16,3 +16,4 @@
 - SketchObject.Support is removed in FreeCAD 0.19+ -- use .AttachmentSupport and .MapMode instead
 - FreeCAD 1.0 renamed __getstate__/__setstate__ to dumps/loads for FeaturePython serialization
 - Body.addObject() manages the feature chain (BaseFeature/Tip) -- prefer it over Body.newObject() for PartDesign features
+- Body.Origin features (planes, axes) don't exist until doc.recompute() -- always call doc.recompute() after addObject('PartDesign::Body') before accessing body.Origin.OriginFeatures
