@@ -59,6 +59,8 @@ SketchGeometryExtension : GeometryExtension
 
 SketchObject : Part2DObject
   # Represents a sketch object
+  AttachmentOffset: Placement
+  AttachmentSupport: PropertyLinkSubList
   AxisCount: int
   ConflictingConstraints: list[int]
   ConstraintCount: int
@@ -70,6 +72,8 @@ SketchObject : Part2DObject
   GeometryCount: int
   GeometryFacadeList: list[GeometryFacade]
   MalformedConstraints: list[int]
+  MapPathParameter: float
+  MapReversed: bool
   MissingLineEqualityConstraints: list[tuple[int, int, int, int]]
   MissingPointOnPointConstraints: list[tuple[int, int, int, int, int]]
   MissingRadiusConstraints: list[tuple[int, int, int, int]]

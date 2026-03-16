@@ -9,7 +9,10 @@
 - Constraints reference geometry by 0-based index, which can break if geometry order changes
 - FreeCADGui (Gui) module is unavailable in headless mode (FreeCADCmd)
 - Use 'import FreeCAD as App' -- the App alias isn't always available outside FreeCAD console
-- Sketch must have Support (plane) and MapMode set before adding geometry
+- Sketch must have AttachmentSupport (plane) and MapMode set before adding geometry
 - Topological naming: avoid referencing faces/edges by index in parametric models
 - Store object references in variables before switching workbenches -- selection clears
 - Point3D coordinates are in mm: App.Vector(10, 0, 0) means 10mm
+- SketchObject.Support is removed in FreeCAD 0.19+ -- use .AttachmentSupport and .MapMode instead
+- FreeCAD 1.0 renamed __getstate__/__setstate__ to dumps/loads for FeaturePython serialization
+- Body.addObject() manages the feature chain (BaseFeature/Tip) -- prefer it over Body.newObject() for PartDesign features

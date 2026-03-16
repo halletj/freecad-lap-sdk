@@ -274,6 +274,11 @@ BezierSurface : GeometrySurface
 BezierTools
   # 1.  REDIRECT [Draft_Workbench#Draft_BezierTools](Draft_Workbench#Draft_BezierTools.md)
 
+Boolean
+  # Boolean operations within a body (PartDesign::Boolean)
+  Refine: bool
+  Type: str
+
 Booleans
   # 1.  REDIRECT [Part_Boolean](Part_Boolean.md)
 
@@ -305,7 +310,7 @@ Cylinder : GeometrySurface
   Center: Vector
   Radius: float
 
-Edge : PyObjectBase
+Mesh::Edge : PyObjectBase
   Bound: bool
   Index: int
   Length: float
@@ -317,7 +322,7 @@ Edge : PyObjectBase
   isParallel() -> bool
   unbound()
 
-Edge : Shape
+Part::Edge : Shape
   # This class can be imported.
     TopoShapeEdge is the OpenCasCade topological edge wrapper
   CenterOfMass: Vector
@@ -419,7 +424,7 @@ Facet : PyObjectBase
   isDegenerated() -> bool
   unbound()
 
-Feature : GeoFeature
+Mesh::Feature : GeoFeature
   Mesh: Mesh
   countFacets() -> int
   countPoints() -> int
@@ -435,12 +440,12 @@ Feature : GeoFeature
   removeNonManifolds()
   smooth()
 
-Feature : GeoFeature
+Part::Feature : GeoFeature
   # This class can be imported.
     This is the father of all shape object classes
   Shape: Shape
 
-Feature : Feature
+PartDesign::Feature : Feature
   # This is the father of all PartDesign object classes
   BaseFeature: DocumentObject | None
   _Body: DocumentObject | None
@@ -568,6 +573,15 @@ LineSegment : TrimmedCurve
   EndPoint: Vector
   StartPoint: Vector
   setParameterRange()
+
+LinearPattern
+  # Repeat features in a linear direction (PartDesign::LinearPattern)
+  Direction: LinkSub
+  Length: float
+  Occurrences: int
+  Originals: LinkList
+  Refine: bool
+  Reversed: bool
 
 Linestyle
   # 1.  REDIRECT [Draft_Tray](Draft_Tray.md)
@@ -789,3 +803,21 @@ Wire : Shape
   makeOffset() -> Shape
   makePipe() -> Shape
   makePipeShell() -> Shape
+
+[functions]
+# Part module convenience functions (import Part)
+Part.makeBox(length: float, width: float, height: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1)) -> Shape
+Part.makeCylinder(radius: float, height: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1), angle: float = 360) -> Shape
+Part.makeSphere(radius: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1), angle1: float = -90, angle2: float = 90, angle3: float = 360) -> Shape
+Part.makeCone(radius1: float, radius2: float, height: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1), angle: float = 360) -> Shape
+Part.makeTorus(radius1: float, radius2: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1), angle1: float = 0, angle2: float = 360, angle: float = 360) -> Shape
+Part.makeHelix(pitch: float, height: float, radius: float, angle: float = 0, lefthand: bool = False, heightstyle: bool = False) -> Shape
+Part.makeLine(startpnt: Vector | tuple, endpnt: Vector | tuple) -> Shape
+Part.makePolygon(pntslist: list[Vector], closed: bool = False) -> Shape  # returns Wire
+Part.makeLoft(profiles: list[Shape], solid: bool = False, ruled: bool = False, closed: bool = False, maxDegree: int = 5) -> Shape
+Part.makeCompound(shapes: list[Shape]) -> Shape
+Part.makeShell(faces: list[Shape]) -> Shape
+Part.makeSolid(shell: Shape) -> Shape
+Part.show(shape: Shape, name: str = "Shape") -> DocumentObject  # adds to active doc
+Part.read(filename: str) -> Shape  # reads BREP/IGES/STEP
+Part.export(objects: list[Shape], filename: str) -> None  # format from extension

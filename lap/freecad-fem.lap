@@ -75,7 +75,7 @@ FemPostPipeline : GeoFeature
   recomputeChildren()
   scale()
 
-Material : PyObjectBase
+FreeCAD::Material : PyObjectBase
   # This class can be imported.
     This is the Material class
   AmbientColor: tuple[float, float, float, float]
@@ -86,7 +86,7 @@ Material : PyObjectBase
   Transparency: float
   set()
 
-Material : BaseClass
+Material::Material : BaseClass
   # This class can be imported.
     Material descriptions.
   AppearanceModels: list

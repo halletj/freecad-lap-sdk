@@ -24,3 +24,30 @@ Wire : Shape
   makeOffset() -> Shape
   makePipe() -> Shape
   makePipeShell() -> Shape
+
+[functions]
+# Draft module convenience functions (import Draft)
+# Modern snake_case names (0.19+); old camelCase names still work but are deprecated
+
+# Creation
+Draft.make_line(first_param: Vector | Part.LineSegment, last_param: Vector = None) -> DocumentObject
+Draft.make_wire(pointslist: list[Vector] | Part.Wire, closed: bool = False, placement: Placement = None, face: bool = None, support: object = None) -> DocumentObject
+Draft.make_circle(radius: float | Part.Edge, placement: Placement = None, face: bool = None, startangle: float = None, endangle: float = None, support: object = None) -> DocumentObject
+Draft.make_rectangle(length: float, height: float = 0, placement: Placement = None, face: bool = None, support: object = None) -> DocumentObject
+Draft.make_polygon(nfaces: int, radius: float = 1, inscribed: bool = True, placement: Placement = None, face: bool = None, support: object = None) -> DocumentObject
+Draft.make_bspline(pointslist: list[Vector], closed: bool = False, placement: Placement = None, face: bool = None, support: object = None) -> DocumentObject
+Draft.make_text(string: str | list[str], placement: Placement = None, screen: bool = False) -> DocumentObject
+Draft.make_linear_dimension(p1: Vector, p2: Vector, dim_line: Vector = None) -> DocumentObject
+Draft.make_angular_dimension(center: Vector = Vector(0,0,0), angles: list[float] = None, dim_line: Vector = None) -> DocumentObject
+
+# Modification
+Draft.move(selection: object | list, vector: Vector, copy: bool = False) -> object | list
+Draft.rotate(selection: object | list, angle: float, center: Vector = Vector(0,0,0), axis: Vector = Vector(0,0,1), copy: bool = False) -> object | list
+Draft.scale(selection: object | list, scale: Vector, center: Vector = Vector(0,0,0), copy: bool = False) -> object | list
+Draft.offset(obj: object, delta: Vector, copy: bool = False, bind: bool = False, sym: bool = False, occ: bool = False) -> object
+
+# Arrays (use_link=True creates memory-efficient App::Link arrays)
+Draft.make_ortho_array(base_object: object, v_x: Vector = Vector(10,0,0), v_y: Vector = Vector(0,10,0), v_z: Vector = Vector(0,0,10), n_x: int = 2, n_y: int = 2, n_z: int = 1, use_link: bool = True) -> DocumentObject
+Draft.make_polar_array(base_object: object, number: int = 5, angle: float = 360, center: Vector = Vector(0,0,0), use_link: bool = True) -> DocumentObject
+Draft.make_circular_array(base_object: object, r_distance: float = 100, tan_distance: float = 50, number: int = 3, symmetry: int = 1, center: Vector = Vector(0,0,0), use_link: bool = True) -> DocumentObject
+Draft.make_path_array(base_object: object, path_object: object, count: int = 4, use_link: bool = True) -> DocumentObject

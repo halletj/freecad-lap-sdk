@@ -8,7 +8,11 @@ import yaml
 from .discover import find_stubs
 from .enrich import enrich_ir
 from .ir import IR
-from .render import render_domain, render_gotchas, render_graph, render_meta, render_remaining
+from .patches import apply_patches
+from .render import (
+    render_domain, render_draft_functions, render_gotchas, render_graph,
+    render_meta, render_part_functions, render_remaining,
+)
 from .scraper import scrape_local_docs
 from .stubs import parse_stubs
 
@@ -23,7 +27,7 @@ DEFAULT_GOTCHAS = [
     "Constraints reference geometry by 0-based index, which can break if geometry order changes",
     "FreeCADGui (Gui) module is unavailable in headless mode (FreeCADCmd)",
     "Use 'import FreeCAD as App' -- the App alias isn't always available outside FreeCAD console",
-    "Sketch must have Support (plane) and MapMode set before adding geometry",
+    "Sketch must have AttachmentSupport (plane) and MapMode set before adding geometry",
     "Topological naming: avoid referencing faces/edges by index in parametric models",
     "Store object references in variables before switching workbenches -- selection clears",
     "Point3D coordinates are in mm: App.Vector(10, 0, 0) means 10mm",
@@ -33,12 +37,14 @@ DEFAULT_GOTCHAS = [
 _REPO_ROOT = Path(__file__).parent.parent
 _DEFAULT_OUTPUT = _REPO_ROOT / "lap"
 _DEFAULT_DOMAINS = _REPO_ROOT / "domains.yaml"
+_DEFAULT_PATCHES = _REPO_ROOT / "patches.yaml"
 
 
 def build_lap_files(
     output_dir: str | Path = _DEFAULT_OUTPUT,
     stubs_path: str | None = None,
     domains_yaml: str | Path = _DEFAULT_DOMAINS,
+    patches_yaml: str | Path = _DEFAULT_PATCHES,
 ):
     """Run the full build pipeline. Finds stubs, scrapes docs, enriches, renders."""
     out = Path(output_dir)
@@ -63,8 +69,11 @@ def build_lap_files(
     else:
         logger.warning("No wiki docs found. Proceeding with stubs only.")
 
+    # Stage 2.5: Apply manual patches
+    apply_patches(ir, patches_yaml)
+
     # Add default gotchas
-    ir.gotchas = DEFAULT_GOTCHAS
+    ir.gotchas = DEFAULT_GOTCHAS + ir.gotchas
 
     # Stage 3: Classify & render
     domains = _load_domains(domains_yaml)
@@ -74,6 +83,10 @@ def build_lap_files(
         filepath = out / f"freecad-{domain_name}.lap"
         filepath.write_text(content, encoding="utf-8")
         logger.info(f"Wrote {filepath}")
+
+    # Append module-level functions to domain files
+    _append_to_domain(out, "part", render_part_functions())
+    _append_to_domain(out, "draft", render_draft_functions())
 
     # Render misc (everything that didn't match any domain)
     misc_content = render_remaining(ir, domains)
@@ -104,6 +117,16 @@ def build_lap_files(
     logger.info(f"Wrote {out / 'freecad-base.lap'}")
 
     _print_summary(out)
+
+
+def _append_to_domain(out: Path, domain_name: str, content: str):
+    """Append extra content to a domain .lap file."""
+    filepath = out / f"freecad-{domain_name}.lap"
+    if filepath.exists():
+        existing = filepath.read_text(encoding="utf-8")
+        filepath.write_text(existing + "\n" + content, encoding="utf-8")
+    else:
+        filepath.write_text(f"# freecad-{domain_name}.lap\n\n{content}", encoding="utf-8")
 
 
 def _load_domains(domains_yaml: str | Path) -> dict[str, list[str]]:

@@ -7,14 +7,14 @@ FreeCAD (App)
   .openDocument(path: str) -> Document
   .Console -> Console
   .Vector(x, y, z) -> Vector
-  .Placement(pos, rot) -> Placement
-  .Rotation(axis, angle) -> Rotation
+  .Placement(pos, rot, center=Vector()) -> Placement  # also: (matrix)
+  .Rotation(axis, angle) -> Rotation  # also: (yaw, pitch, roll), (q0, q1, q2, q3)
 
 Document
   .Objects -> list[DocumentObject]
   .addObject(type: str, name: str) -> DocumentObject
   .removeObject(name: str) -> None
-  .recompute() -> None
+  .recompute() -> int
   .getObject(name: str) -> DocumentObject
   .save() -> None
   .saveAs(path: str) -> None
@@ -34,7 +34,7 @@ PartDesign::Body (single solid)
 Sketcher::SketchObject
   .addGeometry(geo: Part.Geometry, construction: bool) -> int
   .addConstraint(constraint: Sketcher.Constraint) -> int
-  .Support -> PropertyLinkSub  # the plane
+  .AttachmentSupport -> PropertyLinkSubList  # the plane (was .Support pre-0.19)
   .MapMode -> str
 
 Part.Shape (TopoShape)
@@ -56,10 +56,13 @@ Part.Shape (TopoShape)
 - Constraints reference geometry by 0-based index, which can break if geometry order changes
 - FreeCADGui (Gui) module is unavailable in headless mode (FreeCADCmd)
 - Use 'import FreeCAD as App' -- the App alias isn't always available outside FreeCAD console
-- Sketch must have Support (plane) and MapMode set before adding geometry
+- Sketch must have AttachmentSupport (plane) and MapMode set before adding geometry
 - Topological naming: avoid referencing faces/edges by index in parametric models
 - Store object references in variables before switching workbenches -- selection clears
 - Point3D coordinates are in mm: App.Vector(10, 0, 0) means 10mm
+- SketchObject.Support is removed in FreeCAD 0.19+ -- use .AttachmentSupport and .MapMode instead
+- FreeCAD 1.0 renamed __getstate__/__setstate__ to dumps/loads for FeaturePython serialization
+- Body.addObject() manages the feature chain (BaseFeature/Tip) -- prefer it over Body.newObject() for PartDesign features
 
 [meta]
 api: FreeCAD
@@ -70,7 +73,7 @@ import: import FreeCAD as App; import Part; import PartDesign; import Sketcher
 # freecad-core.lap
 
 [classes]
-Document : PropertyContainer
+FreeCAD::Document : PropertyContainer
   # This class can be imported.
     This is a Document class
   ActiveObject: DocumentObjectPy | None
@@ -153,7 +156,7 @@ Document : PropertyContainer
   supportedTypes() -> list[str]
   undo()
 
-Document : Persistence
+FreeCADGui::Document : Persistence
   # This class can be imported.
     This is a Document class
   ActiveObject: ViewProvider | None

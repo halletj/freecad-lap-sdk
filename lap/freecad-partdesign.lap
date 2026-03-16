@@ -1,18 +1,180 @@
 # freecad-partdesign.lap
 
 [classes]
+AdditiveLoft
+  # Loft through multiple profiles (PartDesign::AdditiveLoft)
+  Closed: bool
+  Profile: LinkSub
+  Refine: bool
+  Ruled: bool
+  Sections: LinkSubList
+
+AdditivePipe
+  # Sweep a profile along a spine (PartDesign::AdditivePipe)
+  AuxiliarySpine: LinkSub
+  Binormal: Vector
+  Mode: str
+  Profile: LinkSub
+  Refine: bool
+  Sections: LinkSubList
+  Spine: LinkSub
+  Transformation: str
+  Transition: str
+
 Body : BodyBase
   # PartDesign body class
   VisibleFeature: Any | object
   insertObject()
 
+Chamfer
+  # Bevel edges of a solid (PartDesign::Chamfer)
+  Angle: float
+  Base: LinkSub
+  ChamferType: str
+  FlipDirection: bool
+  Refine: bool
+  Size: float
+  Size2: float
+  UseAllEdges: bool
+
+Fillet
+  # Round edges of a solid (PartDesign::Fillet)
+  Base: LinkSub
+  Radius: float
+  Refine: bool
+  UseAllEdges: bool
+
+Groove
+  # Subtractive revolution around an axis (PartDesign::Groove)
+  Angle: float
+  Angle2: float
+  Axis: Vector
+  Base: Vector
+  Profile: LinkSub
+  ReferenceAxis: LinkSub
+  Refine: bool
+  Reversed: bool
+  Type: str
+
+Hole
+  # Create parametric holes (PartDesign::Hole)
+  Depth: float
+  DepthType: str
+  Diameter: float
+  DrillPoint: str
+  DrillPointAngle: float
+  HoleCutCountersinkAngle: float
+  HoleCutDepth: float
+  HoleCutDiameter: float
+  HoleCutType: str
+  ModelThread: bool
+  Profile: LinkSub
+  Refine: bool
+  ThreadFit: str
+  ThreadSize: str
+  ThreadType: str
+  Threaded: bool
+
+LinearPattern
+  # Repeat features in a linear direction (PartDesign::LinearPattern)
+  Direction: LinkSub
+  Length: float
+  Occurrences: int
+  Originals: LinkList
+  Refine: bool
+  Reversed: bool
+
 Loft_Technical_Details
+
+Mirrored
+  # Mirror features across a plane (PartDesign::Mirrored)
+  MirrorPlane: LinkSub
+  Originals: LinkList
+  Refine: bool
+
+MultiTransform
+  # Combine multiple pattern transformations (PartDesign::MultiTransform)
+  Originals: LinkList
+  Refine: bool
+  Transformations: LinkList
+
+Pad
+  # Extrude a sketch profile into a solid (PartDesign::Pad)
+  Direction: Vector
+  Length: float
+  Length2: float
+  Midplane: bool
+  Offset: float
+  Profile: LinkSub
+  ReferenceAxis: LinkSub
+  Refine: bool
+  Reversed: bool
+  TaperAngle: float
+  TaperAngle2: float
+  Type: str
+  UpToFace: LinkSub
+  UseCustomVector: bool
+
+Pocket
+  # Cut into a solid using a sketch profile (PartDesign::Pocket)
+  Length: float
+  Length2: float
+  Midplane: bool
+  Offset: float
+  Profile: LinkSub
+  Refine: bool
+  Reversed: bool
+  TaperAngle: float
+  Type: str
+  UpToFace: LinkSub
 
 Pocket_3D
   # 1.  REDIRECT [CAM_Pocket_3D](CAM_Pocket_3D.md)
 
 Pocket_Shape
   # 1.  REDIRECT [CAM_Pocket_Shape](CAM_Pocket_Shape.md)
+
+PolarPattern
+  # Repeat features around an axis (PartDesign::PolarPattern)
+  Angle: float
+  Axis: LinkSub
+  Occurrences: int
+  Originals: LinkList
+  Refine: bool
+  Reversed: bool
+
+Revolution
+  # Revolve a sketch profile around an axis (PartDesign::Revolution)
+  Angle: float
+  Angle2: float
+  Axis: Vector
+  Base: Vector
+  Midplane: bool
+  Profile: LinkSub
+  ReferenceAxis: LinkSub
+  Refine: bool
+  Reversed: bool
+  Type: str
+
+SubtractiveLoft
+  # Subtractive loft through profiles (PartDesign::SubtractiveLoft)
+  Closed: bool
+  Profile: LinkSub
+  Refine: bool
+  Ruled: bool
+  Sections: LinkSubList
+
+SubtractivePipe
+  # Subtractive sweep along a spine (PartDesign::SubtractivePipe)
+  AuxiliarySpine: LinkSub
+  Binormal: Vector
+  Mode: str
+  Profile: LinkSub
+  Refine: bool
+  Sections: LinkSubList
+  Spine: LinkSub
+  Transformation: str
+  Transition: str
 
 ThreadMilling
   # 1.  REDIRECT [CAM_ThreadMilling](CAM_ThreadMilling.md)

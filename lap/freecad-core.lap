@@ -7,7 +7,7 @@ import: import FreeCAD as App; import Part; import PartDesign; import Sketcher
 # freecad-core.lap
 
 [classes]
-Document : PropertyContainer
+FreeCAD::Document : PropertyContainer
   # This class can be imported.
     This is a Document class
   ActiveObject: DocumentObjectPy | None
@@ -90,7 +90,7 @@ Document : PropertyContainer
   supportedTypes() -> list[str]
   undo()
 
-Document : Persistence
+FreeCADGui::Document : Persistence
   # This class can be imported.
     This is a Document class
   ActiveObject: ViewProvider | None

@@ -30,8 +30,9 @@ def render_domain(ir: IR, domain_name: str, patterns: list[str]) -> str:
 
     if matching_classes:
         lines.append("[classes]")
-        for cls in sorted(matching_classes, key=lambda c: c.name):
-            lines.extend(_render_class(cls))
+        name_counts = _count_names(matching_classes)
+        for cls in sorted(matching_classes, key=lambda c: (c.name, c.namespace)):
+            lines.extend(_render_class(cls, disambiguate=name_counts[cls.name] > 1))
             lines.append("")
 
     return "\n".join(lines)
@@ -49,14 +50,14 @@ def render_graph(ir: IR) -> str:
     lines.append("  .openDocument(path: str) -> Document")
     lines.append("  .Console -> Console")
     lines.append("  .Vector(x, y, z) -> Vector")
-    lines.append("  .Placement(pos, rot) -> Placement")
-    lines.append("  .Rotation(axis, angle) -> Rotation")
+    lines.append("  .Placement(pos, rot, center=Vector()) -> Placement  # also: (matrix)")
+    lines.append("  .Rotation(axis, angle) -> Rotation  # also: (yaw, pitch, roll), (q0, q1, q2, q3)")
     lines.append("")
     lines.append("Document")
     lines.append("  .Objects -> list[DocumentObject]")
     lines.append("  .addObject(type: str, name: str) -> DocumentObject")
     lines.append("  .removeObject(name: str) -> None")
-    lines.append("  .recompute() -> None")
+    lines.append("  .recompute() -> int")
     lines.append("  .getObject(name: str) -> DocumentObject")
     lines.append("  .save() -> None")
     lines.append("  .saveAs(path: str) -> None")
@@ -76,7 +77,7 @@ def render_graph(ir: IR) -> str:
     lines.append("Sketcher::SketchObject")
     lines.append("  .addGeometry(geo: Part.Geometry, construction: bool) -> int")
     lines.append("  .addConstraint(constraint: Sketcher.Constraint) -> int")
-    lines.append("  .Support -> PropertyLinkSub  # the plane")
+    lines.append("  .AttachmentSupport -> PropertyLinkSubList  # the plane (was .Support pre-0.19)")
     lines.append("  .MapMode -> str")
     lines.append("")
     lines.append("Part.Shape (TopoShape)")
@@ -115,6 +116,61 @@ def render_gotchas(ir: IR) -> str:
     return "\n".join(lines)
 
 
+def render_part_functions() -> str:
+    """Render Part module-level convenience functions."""
+    return """\
+[functions]
+# Part module convenience functions (import Part)
+Part.makeBox(length: float, width: float, height: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1)) -> Shape
+Part.makeCylinder(radius: float, height: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1), angle: float = 360) -> Shape
+Part.makeSphere(radius: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1), angle1: float = -90, angle2: float = 90, angle3: float = 360) -> Shape
+Part.makeCone(radius1: float, radius2: float, height: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1), angle: float = 360) -> Shape
+Part.makeTorus(radius1: float, radius2: float, pnt: Vector = Vector(0,0,0), dir: Vector = Vector(0,0,1), angle1: float = 0, angle2: float = 360, angle: float = 360) -> Shape
+Part.makeHelix(pitch: float, height: float, radius: float, angle: float = 0, lefthand: bool = False, heightstyle: bool = False) -> Shape
+Part.makeLine(startpnt: Vector | tuple, endpnt: Vector | tuple) -> Shape
+Part.makePolygon(pntslist: list[Vector], closed: bool = False) -> Shape  # returns Wire
+Part.makeLoft(profiles: list[Shape], solid: bool = False, ruled: bool = False, closed: bool = False, maxDegree: int = 5) -> Shape
+Part.makeCompound(shapes: list[Shape]) -> Shape
+Part.makeShell(faces: list[Shape]) -> Shape
+Part.makeSolid(shell: Shape) -> Shape
+Part.show(shape: Shape, name: str = "Shape") -> DocumentObject  # adds to active doc
+Part.read(filename: str) -> Shape  # reads BREP/IGES/STEP
+Part.export(objects: list[Shape], filename: str) -> None  # format from extension
+"""
+
+
+def render_draft_functions() -> str:
+    """Render Draft module-level convenience functions."""
+    return """\
+[functions]
+# Draft module convenience functions (import Draft)
+# Modern snake_case names (0.19+); old camelCase names still work but are deprecated
+
+# Creation
+Draft.make_line(first_param: Vector | Part.LineSegment, last_param: Vector = None) -> DocumentObject
+Draft.make_wire(pointslist: list[Vector] | Part.Wire, closed: bool = False, placement: Placement = None, face: bool = None, support: object = None) -> DocumentObject
+Draft.make_circle(radius: float | Part.Edge, placement: Placement = None, face: bool = None, startangle: float = None, endangle: float = None, support: object = None) -> DocumentObject
+Draft.make_rectangle(length: float, height: float = 0, placement: Placement = None, face: bool = None, support: object = None) -> DocumentObject
+Draft.make_polygon(nfaces: int, radius: float = 1, inscribed: bool = True, placement: Placement = None, face: bool = None, support: object = None) -> DocumentObject
+Draft.make_bspline(pointslist: list[Vector], closed: bool = False, placement: Placement = None, face: bool = None, support: object = None) -> DocumentObject
+Draft.make_text(string: str | list[str], placement: Placement = None, screen: bool = False) -> DocumentObject
+Draft.make_linear_dimension(p1: Vector, p2: Vector, dim_line: Vector = None) -> DocumentObject
+Draft.make_angular_dimension(center: Vector = Vector(0,0,0), angles: list[float] = None, dim_line: Vector = None) -> DocumentObject
+
+# Modification
+Draft.move(selection: object | list, vector: Vector, copy: bool = False) -> object | list
+Draft.rotate(selection: object | list, angle: float, center: Vector = Vector(0,0,0), axis: Vector = Vector(0,0,1), copy: bool = False) -> object | list
+Draft.scale(selection: object | list, scale: Vector, center: Vector = Vector(0,0,0), copy: bool = False) -> object | list
+Draft.offset(obj: object, delta: Vector, copy: bool = False, bind: bool = False, sym: bool = False, occ: bool = False) -> object
+
+# Arrays (use_link=True creates memory-efficient App::Link arrays)
+Draft.make_ortho_array(base_object: object, v_x: Vector = Vector(10,0,0), v_y: Vector = Vector(0,10,0), v_z: Vector = Vector(0,0,10), n_x: int = 2, n_y: int = 2, n_z: int = 1, use_link: bool = True) -> DocumentObject
+Draft.make_polar_array(base_object: object, number: int = 5, angle: float = 360, center: Vector = Vector(0,0,0), use_link: bool = True) -> DocumentObject
+Draft.make_circular_array(base_object: object, r_distance: float = 100, tan_distance: float = 50, number: int = 3, symmetry: int = 1, center: Vector = Vector(0,0,0), use_link: bool = True) -> DocumentObject
+Draft.make_path_array(base_object: object, path_object: object, count: int = 4, use_link: bool = True) -> DocumentObject
+"""
+
+
 def render_meta() -> str:
     """Render the [meta] section."""
     return """[meta]
@@ -144,23 +200,25 @@ def render_remaining(ir: IR, all_domain_patterns: dict[str, list[str]]) -> str:
 
     if unmatched_classes:
         lines.append("[classes]")
-        for cls in sorted(unmatched_classes, key=lambda c: c.name):
-            lines.extend(_render_class(cls))
+        name_counts = _count_names(unmatched_classes)
+        for cls in sorted(unmatched_classes, key=lambda c: (c.name, c.namespace)):
+            lines.extend(_render_class(cls, disambiguate=name_counts[cls.name] > 1))
             lines.append("")
 
     return "\n".join(lines)
 
 
-def _render_class(cls: ClassDef) -> list[str]:
+def _render_class(cls: ClassDef, disambiguate: bool = False) -> list[str]:
     """Render a single class definition."""
     lines = []
 
+    display_name = f"{cls.namespace}::{cls.name}" if disambiguate else cls.name
     if cls.is_collection and cls.collection_item_type:
-        header = f"{cls.name} *collection<{cls.collection_item_type}>"
+        header = f"{display_name} *collection<{cls.collection_item_type}>"
     elif cls.parent:
-        header = f"{cls.name} : {cls.parent}"
+        header = f"{display_name} : {cls.parent}"
     else:
-        header = cls.name
+        header = display_name
     lines.append(header)
 
     if cls.description and len(cls.description) < 100:
@@ -181,6 +239,14 @@ def _render_class(cls: ClassDef) -> list[str]:
         lines.append(f"  {static_prefix}{method_name}({args_str}){returns_str}")
 
     return lines
+
+
+def _count_names(classes: list[ClassDef]) -> dict[str, int]:
+    """Count how many classes share the same name."""
+    counts: dict[str, int] = {}
+    for cls in classes:
+        counts[cls.name] = counts.get(cls.name, 0) + 1
+    return counts
 
 
 def _matches_any(name: str, patterns: list[str]) -> bool:

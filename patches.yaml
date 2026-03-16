@@ -1,0 +1,396 @@
+gotchas:
+  - "SketchObject.Support is removed in FreeCAD 0.19+ -- use .AttachmentSupport and .MapMode instead"
+  - "FreeCAD 1.0 renamed __getstate__/__setstate__ to dumps/loads for FeaturePython serialization"
+  - "Body.addObject() manages the feature chain (BaseFeature/Tip) -- prefer it over Body.newObject() for PartDesign features"
+
+classes:
+  SketchObject:
+    add_properties:
+      AttachmentSupport:
+        type: PropertyLinkSubList
+        description: "The plane or face the sketch is attached to (was .Support pre-0.19)"
+      AttachmentOffset:
+        type: Placement
+        description: "Extra placement offset from the attachment"
+      MapReversed:
+        type: bool
+        description: "Reverse attachment orientation"
+      MapPathParameter:
+        type: float
+        description: "Parameter along path for path-based attachment"
+
+  Pad:
+    description: "Extrude a sketch profile into a solid (PartDesign::Pad)"
+    add_properties:
+      Type:
+        type: str
+        description: "Length | UpToLast | UpToFirst | UpToFace | TwoLengths | UpToShape"
+      Length:
+        type: float
+        description: "Pad length in mm (default 10.0)"
+      Length2:
+        type: float
+        description: "Second length for TwoLengths type"
+      Profile:
+        type: LinkSub
+        description: "Reference to sketch"
+      Reversed:
+        type: bool
+        description: "Reverse pad direction"
+      Midplane:
+        type: bool
+        description: "Extrude symmetric to sketch face"
+      UseCustomVector:
+        type: bool
+        description: "Use custom direction vector instead of sketch normal"
+      Direction:
+        type: Vector
+        description: "Custom extrusion direction"
+      ReferenceAxis:
+        type: LinkSub
+        description: "Reference edge/datum line for direction"
+      UpToFace:
+        type: LinkSub
+        description: "Target face for UpToFace type"
+      Offset:
+        type: float
+        description: "Offset from target face"
+      TaperAngle:
+        type: float
+        description: "Taper angle in degrees (default 0)"
+      TaperAngle2:
+        type: float
+        description: "Taper angle for second side"
+      Refine:
+        type: bool
+        description: "Clean residual edges after operation"
+
+  Pocket:
+    description: "Cut into a solid using a sketch profile (PartDesign::Pocket)"
+    add_properties:
+      Type:
+        type: str
+        description: "Length | ThroughAll | UpToFirst | UpToFace | TwoLengths | UpToShape"
+      Length:
+        type: float
+        description: "Pocket depth in mm (default 5.0)"
+      Length2:
+        type: float
+        description: "Second length for TwoLengths type"
+      Profile:
+        type: LinkSub
+        description: "Reference to sketch"
+      Reversed:
+        type: bool
+      Midplane:
+        type: bool
+      UpToFace:
+        type: LinkSub
+      Offset:
+        type: float
+        description: "Offset from target face"
+      TaperAngle:
+        type: float
+      Refine:
+        type: bool
+
+  Revolution:
+    description: "Revolve a sketch profile around an axis (PartDesign::Revolution)"
+    add_properties:
+      Type:
+        type: str
+        description: "Angle | UpToLast | UpToFirst | UpToFace | TwoAngles"
+      Axis:
+        type: Vector
+        description: "Revolution axis direction (read-only)"
+      Base:
+        type: Vector
+        description: "Point on the revolution axis (read-only)"
+      Angle:
+        type: float
+        description: "Revolution angle in degrees (default 360)"
+      Angle2:
+        type: float
+        description: "Angle in second direction for TwoAngles"
+      Reversed:
+        type: bool
+      Midplane:
+        type: bool
+      Profile:
+        type: LinkSub
+      ReferenceAxis:
+        type: LinkSub
+        description: "Reference axis (e.g. sketch line or origin axis)"
+      Refine:
+        type: bool
+
+  Groove:
+    description: "Subtractive revolution around an axis (PartDesign::Groove)"
+    add_properties:
+      Type:
+        type: str
+        description: "Angle | ThroughAll | UpToFirst | UpToFace | TwoAngles"
+      Axis:
+        type: Vector
+      Base:
+        type: Vector
+      Angle:
+        type: float
+        description: "Groove angle in degrees (default 360)"
+      Angle2:
+        type: float
+      Reversed:
+        type: bool
+      Profile:
+        type: LinkSub
+      ReferenceAxis:
+        type: LinkSub
+      Refine:
+        type: bool
+
+  Fillet:
+    description: "Round edges of a solid (PartDesign::Fillet)"
+    add_properties:
+      Base:
+        type: LinkSub
+        description: "Base feature and edge references to fillet"
+      Radius:
+        type: float
+        description: "Fillet radius in mm (default 1.0)"
+      UseAllEdges:
+        type: bool
+        description: "Fillet all edges (default false)"
+      Refine:
+        type: bool
+
+  Chamfer:
+    description: "Bevel edges of a solid (PartDesign::Chamfer)"
+    add_properties:
+      Base:
+        type: LinkSub
+        description: "Base feature and edge references"
+      ChamferType:
+        type: str
+        description: "Equal distance | Two distances | Distance and Angle"
+      Size:
+        type: float
+        description: "Chamfer distance in mm (default 1.0)"
+      Size2:
+        type: float
+        description: "Second distance for Two distances type"
+      Angle:
+        type: float
+        description: "Angle for Distance and Angle type (default 45)"
+      FlipDirection:
+        type: bool
+        description: "Reverse chamfer direction"
+      UseAllEdges:
+        type: bool
+        description: "Chamfer all edges (default false)"
+      Refine:
+        type: bool
+
+  Hole:
+    description: "Create parametric holes (PartDesign::Hole)"
+    add_properties:
+      Profile:
+        type: LinkSub
+        description: "Sketch with center points"
+      Threaded:
+        type: bool
+        description: "Enable threading (default false)"
+      ModelThread:
+        type: bool
+        description: "Model actual 3D thread geometry (default false)"
+      ThreadType:
+        type: str
+        description: "None | ISOMetricProfile | ISOMetricFineProfile | UNC | UNF | BSW | BSF"
+      ThreadSize:
+        type: str
+        description: "Thread size designation (e.g. M3, M4, M6)"
+      ThreadFit:
+        type: str
+        description: "Clearance fit: Medium | Fine | Coarse (metric) or Normal | Close | Loose (UTS)"
+      HoleCutType:
+        type: str
+        description: "None | Counterbore | Countersink | Counterdrill"
+      HoleCutDiameter:
+        type: float
+        description: "Head cut diameter"
+      HoleCutDepth:
+        type: float
+        description: "Head cut depth"
+      HoleCutCountersinkAngle:
+        type: float
+        description: "Countersink angle (default 90)"
+      DepthType:
+        type: str
+        description: "Dimension | ThroughAll"
+      Depth:
+        type: float
+        description: "Hole depth in mm (default 25.0)"
+      Diameter:
+        type: float
+        description: "Hole diameter in mm (default 6.0)"
+      DrillPoint:
+        type: str
+        description: "Flat | Angled (default Angled)"
+      DrillPointAngle:
+        type: float
+        description: "Drill point angle (default 118)"
+      Refine:
+        type: bool
+
+  AdditiveLoft:
+    description: "Loft through multiple profiles (PartDesign::AdditiveLoft)"
+    add_properties:
+      Profile:
+        type: LinkSub
+        description: "Base profile sketch"
+      Sections:
+        type: LinkSubList
+        description: "Cross-section sketches"
+      Ruled:
+        type: bool
+        description: "Create ruled surface between sections (default false)"
+      Closed:
+        type: bool
+        description: "Close loft back to first section (default false)"
+      Refine:
+        type: bool
+
+  SubtractiveLoft:
+    description: "Subtractive loft through profiles (PartDesign::SubtractiveLoft)"
+    add_properties:
+      Profile:
+        type: LinkSub
+      Sections:
+        type: LinkSubList
+      Ruled:
+        type: bool
+      Closed:
+        type: bool
+      Refine:
+        type: bool
+
+  AdditivePipe:
+    description: "Sweep a profile along a spine (PartDesign::AdditivePipe)"
+    add_properties:
+      Profile:
+        type: LinkSub
+        description: "Base profile sketch"
+      Spine:
+        type: LinkSub
+        description: "Edge or wire to sweep along"
+      Sections:
+        type: LinkSubList
+        description: "Cross-section sketches for multisection"
+      Mode:
+        type: str
+        description: "Standard | Fixed | Frenet | Auxiliary | Binormal"
+      Transition:
+        type: str
+        description: "Transformed | Right corner | Round corner"
+      Transformation:
+        type: str
+        description: "Constant | Multisection | Linear | S-shape | Interpolation"
+      AuxiliarySpine:
+        type: LinkSub
+        description: "Secondary path for orientation (Auxiliary mode)"
+      Binormal:
+        type: Vector
+        description: "Binormal vector (for Binormal mode)"
+      Refine:
+        type: bool
+
+  SubtractivePipe:
+    description: "Subtractive sweep along a spine (PartDesign::SubtractivePipe)"
+    add_properties:
+      Profile:
+        type: LinkSub
+      Spine:
+        type: LinkSub
+      Sections:
+        type: LinkSubList
+      Mode:
+        type: str
+      Transition:
+        type: str
+      Transformation:
+        type: str
+      AuxiliarySpine:
+        type: LinkSub
+      Binormal:
+        type: Vector
+      Refine:
+        type: bool
+
+  Mirrored:
+    description: "Mirror features across a plane (PartDesign::Mirrored)"
+    add_properties:
+      MirrorPlane:
+        type: LinkSub
+        description: "Mirror plane reference (sketch axis, datum plane, or face)"
+      Originals:
+        type: LinkList
+        description: "Features to mirror"
+      Refine:
+        type: bool
+
+  LinearPattern:
+    description: "Repeat features in a linear direction (PartDesign::LinearPattern)"
+    add_properties:
+      Direction:
+        type: LinkSub
+        description: "Reference for pattern direction (sketch axis, body axis, datum line, edge)"
+      Reversed:
+        type: bool
+      Length:
+        type: float
+        description: "Total span of the pattern (default 100.0)"
+      Occurrences:
+        type: int
+        description: "Number of copies including original (default 2)"
+      Originals:
+        type: LinkList
+      Refine:
+        type: bool
+
+  PolarPattern:
+    description: "Repeat features around an axis (PartDesign::PolarPattern)"
+    add_properties:
+      Axis:
+        type: LinkSub
+        description: "Reference axis for rotation"
+      Reversed:
+        type: bool
+      Angle:
+        type: float
+        description: "Total angle span in degrees (default 360)"
+      Occurrences:
+        type: int
+        description: "Number of copies including original (default 3)"
+      Originals:
+        type: LinkList
+      Refine:
+        type: bool
+
+  MultiTransform:
+    description: "Combine multiple pattern transformations (PartDesign::MultiTransform)"
+    add_properties:
+      Transformations:
+        type: LinkList
+        description: "List of Mirrored/LinearPattern/PolarPattern features"
+      Originals:
+        type: LinkList
+      Refine:
+        type: bool
+
+  Boolean:
+    description: "Boolean operations within a body (PartDesign::Boolean)"
+    add_properties:
+      Type:
+        type: str
+        description: "Fuse | Cut | Common"
+      Refine:
+        type: bool

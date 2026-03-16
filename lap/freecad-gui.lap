@@ -1,7 +1,7 @@
 # freecad-gui.lap
 
 [classes]
-Command : PyObjectBase
+FreeCADGui::Command : PyObjectBase
   # This class can be imported.
     FreeCAD Python wrapper of Command functions
   @static createCustomCommand(macroFile: str, menuText: str, toolTip: str, whatsThis: str, statusTip: str, pixmap: str, shortcut: str) -> str
@@ -19,7 +19,7 @@ Command : PyObjectBase
   setShortcut() -> bool
   @static update()
 
-Command : Persistence
+Path::Command : Persistence
   Name: str
   Parameters: dict
   Placement: Placement

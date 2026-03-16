@@ -7,14 +7,14 @@ FreeCAD (App)
   .openDocument(path: str) -> Document
   .Console -> Console
   .Vector(x, y, z) -> Vector
-  .Placement(pos, rot) -> Placement
-  .Rotation(axis, angle) -> Rotation
+  .Placement(pos, rot, center=Vector()) -> Placement  # also: (matrix)
+  .Rotation(axis, angle) -> Rotation  # also: (yaw, pitch, roll), (q0, q1, q2, q3)
 
 Document
   .Objects -> list[DocumentObject]
   .addObject(type: str, name: str) -> DocumentObject
   .removeObject(name: str) -> None
-  .recompute() -> None
+  .recompute() -> int
   .getObject(name: str) -> DocumentObject
   .save() -> None
   .saveAs(path: str) -> None
@@ -34,7 +34,7 @@ PartDesign::Body (single solid)
 Sketcher::SketchObject
   .addGeometry(geo: Part.Geometry, construction: bool) -> int
   .addConstraint(constraint: Sketcher.Constraint) -> int
-  .Support -> PropertyLinkSub  # the plane
+  .AttachmentSupport -> PropertyLinkSubList  # the plane (was .Support pre-0.19)
   .MapMode -> str
 
 Part.Shape (TopoShape)
