@@ -1,7 +1,7 @@
 # freecad-gotchas.lap
 
 [gotchas]
-- ALWAYS call doc.recompute() after modifying objects -- nothing updates without it
+- ALWAYS call doc.recompute() after modifying objects -- nothing updates without it. Use doc.recompute(), NOT obj.recompute() on individual features -- feature-level recompute skips dependency resolution and causes stale state
 - Units are millimeters internally, not centimeters (unlike Fusion 360)
 - Create objects via doc.addObject('TypeString', 'Name') -- type string must be exact
 - Features must be added to a Body via body.newObject(), not doc.addObject()
