@@ -1,0 +1,46 @@
+# freecad-graph.lap
+
+[graph]
+FreeCAD (App)
+  .ActiveDocument -> Document
+  .newDocument(name: str) -> Document
+  .openDocument(path: str) -> Document
+  .Console -> Console
+  .Vector(x, y, z) -> Vector
+  .Placement(pos, rot) -> Placement
+  .Rotation(axis, angle) -> Rotation
+
+Document
+  .Objects -> list[DocumentObject]
+  .addObject(type: str, name: str) -> DocumentObject
+  .removeObject(name: str) -> None
+  .recompute() -> None
+  .getObject(name: str) -> DocumentObject
+  .save() -> None
+  .saveAs(path: str) -> None
+
+App::Part (spatial container)
+  .addObject(obj) -> None
+  .Group -> list[DocumentObject]
+  .Origin -> Origin
+
+PartDesign::Body (single solid)
+  .newObject(type: str, name: str) -> DocumentObject
+  .Tip -> Feature
+  .BaseFeature -> Feature
+  .Origin -> Origin
+  .Group -> list[DocumentObject]
+
+Sketcher::SketchObject
+  .addGeometry(geo: Part.Geometry, construction: bool) -> int
+  .addConstraint(constraint: Sketcher.Constraint) -> int
+  .Support -> PropertyLinkSub  # the plane
+  .MapMode -> str
+
+Part.Shape (TopoShape)
+  .Faces -> list[Face]
+  .Edges -> list[Edge]
+  .Vertexes -> list[Vertex]
+  .Wires -> list[Wire]
+  .Shells -> list[Shell]
+  .Solids -> list[Solid]

@@ -1,0 +1,71 @@
+# FreeCAD LAP SDK — LLM Reference Guide
+
+Compressed API reference for the FreeCAD Python API.
+Use these .lap files to write FreeCAD scripts, macros, and workbench add-ons.
+
+## Quick Start
+
+Fetch the base reference (always start here, ~12K tokens):
+https://halletj.github.io/freecad-lap-sdk/lap/freecad-base.lap
+
+This contains the object navigation graph, common gotchas, and core types
+(Document, Vector, Placement, Rotation, etc.).
+
+## Domain Files
+
+Fetch the relevant domain file based on the task:
+
+- Part shapes, primitives, booleans, OCCT wrappers:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-part.lap
+
+- PartDesign: Body, Pad, Pocket, Revolution, Fillet, etc.:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-partdesign.lap
+
+- Sketcher: SketchObject, geometry, constraints:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-sketcher.lap
+
+- Draft 2D drawing, convenience functions:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-draft.lap
+
+- TechDraw: drawing views, dimensions, annotations:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-techdraw.lap
+
+- Path (CAM) toolpaths, operations:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-path.lap
+
+- Mesh operations:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-mesh.lap
+
+- FEM: finite element analysis:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-fem.lap
+
+- Assembly constraints:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-assembly.lap
+
+- FreeCADGui: ViewProviders, Selection, Commands:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-gui.lap
+
+- Uncategorized classes and enums:
+  https://halletj.github.io/freecad-lap-sdk/lap/freecad-misc.lap
+
+## Rules for FreeCAD Scripts
+
+- Always import: import FreeCAD as App; import Part
+- Units are always millimeters internally
+- ALWAYS call doc.recompute() after modifying objects
+- Create objects via doc.addObject('TypeString', 'Name')
+- Features must be added to a Body via body.newObject()
+- Use the [graph] section in freecad-base.lap to navigate the FreeCAD object model
+- Sketch geometry uses Part types: Part.LineSegment, Part.Circle, etc.
+- Constraints reference geometry by 0-based index
+
+## Format
+
+Files use .lap format: classes with ":" for inheritance, properties without parens,
+methods with parens, *collection<T> for collection classes. The format is plain text
+and self-describing.
+
+## Source
+
+Repository: https://github.com/halletj/freecad-lap-sdk
+Generated from FreeCAD Python API stubs + FreeCAD wiki documentation.

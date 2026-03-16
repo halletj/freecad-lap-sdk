@@ -1,0 +1,137 @@
+# freecad-mesh.lap
+
+[classes]
+Facet : PyObjectBase
+  Area: float
+  AspectRatio: float
+  AspectRatio2: float
+  Bound: bool
+  CircumCircle: tuple[Vector, float] | None
+  InCircle: tuple[Vector, float] | None
+  Index: int
+  NeighbourIndices: tuple | tuple[int, Ellipsis]
+  Normal: Vector
+  PointIndices: tuple | tuple[int, Ellipsis]
+  Points: list[tuple[float, float, float]]
+  Roundness: float
+  getEdge() -> Edge
+  intersect() -> list[tuple[float, float, float]]
+  isDeformed() -> bool
+  isDegenerated() -> bool
+  unbound()
+
+Mesh : ComplexGeoData
+  Area: float
+  CountEdges: int
+  CountFacets: int
+  CountPoints: int
+  Facets: list[Facet]
+  Points: list[MeshPoint]
+  Topology: tuple[list[Vector], list[tuple[int, int, int]]]
+  Volume: float
+  addFacet()
+  addFacets()
+  addMesh()
+  addSegment()
+  clear()
+  coarsen()
+  collapseEdge()
+  collapseFacet()
+  collapseFacets()
+  copy() -> Mesh
+  countComponents() -> int
+  countNonUniformOrientedFacets() -> int
+  countSegments() -> int
+  crossSections() -> list[list[list[Vector]]]
+  cut()
+  decimate()
+  difference() -> Mesh
+  fillupHoles()
+  fixCaps()
+  fixDeformations()
+  fixDegenerations()
+  fixIndices()
+  fixSelfIntersections()
+  flipNormals()
+  foraminate() -> dict[int, tuple[float, float, float]]
+  getCurvaturePerVertex() -> list[tuple[float, float, Vector, Vector]]
+  getEigenSystem() -> tuple[Matrix, Vector]
+  getFacetSelection() -> list[int]
+  getInternalFacets() -> list
+  getNonUniformOrientedFacets() -> tuple[int, Ellipsis]
+  getPlanarSegments() -> list[list[int]]
+  getPointNormals() -> tuple[Vector, Ellipsis]
+  getPointSelection() -> list[int]
+  getSegment() -> list[int]
+  getSegmentsByCurvature()
+  getSegmentsOfType() -> list[list[int]]
+  getSelfIntersections() -> tuple[tuple[int, int, Vector, Vector], Ellipsis]
+  getSeparateComponents() -> list[Mesh]
+  harmonizeNormals()
+  hasCorruptedFacets() -> bool
+  hasFacetsOutOfRange() -> bool
+  hasInvalidNeighbourhood() -> bool
+  hasInvalidPoints() -> bool
+  hasNonManifolds() -> bool
+  hasNonUniformOrientedFacets() -> bool
+  hasPointsOnEdge() -> bool
+  hasPointsOutOfRange() -> bool
+  hasSelfIntersections() -> bool
+  inner() -> Mesh
+  insertVertex()
+  intersect() -> Mesh
+  isSolid() -> bool
+  mergeFacets()
+  meshFromSegment() -> Mesh
+  movePoint()
+  nearestFacetOnRay() -> dict[int, tuple[float, float, float]]
+  offset()
+  offsetSpecial()
+  optimizeEdges()
+  optimizeTopology()
+  outer() -> Mesh
+  printInfo() -> str
+  read(Stream: , Format: str)
+  rebuildNeighbourHood()
+  refine()
+  removeComponents()
+  removeDuplicatedFacets()
+  removeDuplicatedPoints()
+  removeFacets()
+  removeFoldsOnSurface()
+  removeFullBoundaryFacets()
+  removeInvalidPoints()
+  removeNeedles()
+  removeNonManifoldPoints()
+  removeNonManifolds()
+  removePointsOnEdge(FillBoundary: bool)
+  rotate()
+  section(Mesh: Mesh, ConnectLines: bool, MinDist: float) -> list[list[Vector]]
+  setPoint()
+  smooth(Method: str, Iteration: int, Lambda: float, Micro: float, Maximum: float, Weight: int)
+  snapVertex()
+  splitEdge()
+  splitEdges()
+  splitFacet()
+  swapEdge()
+  transform()
+  transformToEigen()
+  translate()
+  trim()
+  trimByPlane()
+  unite() -> Mesh
+  write(Stream: , Format: str, Name: str, Material: )
+  writeInventor() -> str
+
+MeshFromShape
+  # 1.  REDIRECT [Mesh FromPartShape](Mesh_FromPartShape.md)
+
+MeshPoint : PyObjectBase
+  Bound: bool
+  Index: int
+  Normal: Vector
+  Vector: Vector
+  x: float
+  y: float
+  z: float
+  unbound()

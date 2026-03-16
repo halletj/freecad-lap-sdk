@@ -1,0 +1,791 @@
+# freecad-part.lap
+
+[classes]
+Arc : TrimmedCurve
+  # This class can be imported.
+    Describes a portion of a curve
+
+ArcOfCircle : ArcOfConic
+  # This class can be imported.
+    Describes a portion of a circle
+  Circle: Circle
+  Radius: float
+
+ArcOfConic : TrimmedCurve
+  # This class can be imported.
+    Describes a portion of a conic
+  AngleXU: float
+  Axis: Vector
+  Center: Vector
+  Location: Vector
+  XAxis: Vector
+  YAxis: Vector
+
+ArcOfEllipse : ArcOfConic
+  # This class can be imported.
+    Describes a portion of an ellipse
+  Ellipse: Ellipse
+  MajorRadius: float
+  MinorRadius: float
+
+ArcOfHyperbola : ArcOfConic
+  # This class can be imported.
+    Describes a portion of an hyperbola
+  Hyperbola: Hyperbola
+  MajorRadius: float
+  MinorRadius: float
+
+ArcOfParabola : ArcOfConic
+  # This class can be imported.
+    Describes a portion of an parabola
+  Focal: float
+  Parabola: Parabola
+
+ArcTools
+  # 1.  REDIRECT [Draft_Workbench#Draft_ArcTools](Draft_Workbench#Draft_ArcTools.md)
+
+BRepOffsetAPI_MakeFilling : PyObjectBase
+  # N-Side Filling
+  G0Error() -> float
+  G1Error() -> float
+  G2Error() -> float
+  add(Point: Vector)
+  build()
+  isDone() -> bool
+  loadInitSurface()
+  setApproxParam(MaxDegree: int, MaxSegments: int)
+  setConstrParam(Tol2d: float, Tol3d: float, TolAng: float, TolCurv: float)
+  setResolParam(Degree: int, NbPtsOnCur: int, NbIter: int, Anisotropy: bool)
+  shape() -> Shape
+
+BRepOffsetAPI_MakePipeShell : PyObjectBase
+  # Describes a portion of a circle
+  add(Profile: Shape, Location: Vertex, WithContact: bool, WithCorrection: bool)
+  build()
+  firstShape() -> Shape
+  generated() -> list[Shape]
+  getStatus() -> int
+  isReady() -> bool
+  lastShape() -> Shape
+  makeSolid() -> bool
+  remove()
+  setAuxiliarySpine()
+  setBiNormalMode()
+  setForceApproxC1()
+  setFrenetMode()
+  setMaxDegree()
+  setMaxSegments()
+  setSpineSupport() -> bool
+  setTolerance()
+  setTransitionMode()
+  setTrihedronMode()
+  shape() -> Shape
+  simulate() -> list[Shape]
+
+BSplineApproximate
+  # 1.  REDIRECT [Sketcher_BSplineConvertToNURBS](Sketcher_BSplineConvertToNURBS.md)
+
+BSplineConvertToNURB
+  # 1.  REDIRECT [Sketcher_BSplineConvertToNURBS](Sketcher_BSplineConvertToNURBS.md)
+
+BSplineCurve : BoundedCurve
+  # This class can be imported.
+    Describes a B-Spline curve in 3D space
+  Degree: int
+  EndPoint: Vector
+  FirstUKnotIndex: int
+  KnotSequence: list[float]
+  LastUKnotIndex: int
+  MaxDegree: int
+  NbKnots: int
+  NbPoles: int
+  StartPoint: Vector
+  approximate(Points: , DegMax: int, Continuity: str, Tolerance: float, DegMin: int, ParamType: str, Parameters: , LengthWeight: float, CurvatureWeight: float, TorsionWeight: float) -> bool
+  buildFromPoles()
+  buildFromPolesMultsKnots(poles: , mults: , knots: , periodic: bool, degree: int, weights: , CheckRational: bool)
+  getCardinalSplineTangents(Points: , Parameters: ) -> list[Vector]
+  getKnot() -> float
+  getKnots() -> list[float]
+  getMultiplicities() -> list[int]
+  getMultiplicity() -> int
+  getPole() -> Vector
+  getPoles() -> list[Vector]
+  getPolesAndWeights() -> list[tuple[float, float, float, float]]
+  getResolution() -> float
+  getWeight() -> float
+  getWeights() -> list[float]
+  increaseDegree()
+  increaseMultiplicity()
+  incrementMultiplicity()
+  insertKnot()
+  insertKnots()
+  interpolate(Points: , PeriodicFlag: bool, Tolerance: float, InitialTangent: Vector, FinalTangent: Vector, Tangents: , TangentFlags: , Parameters: , Scale: bool)
+  isClosed() -> bool
+  isPeriodic() -> bool
+  isRational() -> bool
+  join() -> bool
+  makeC1Continuous()
+  movePoint() -> tuple[int, int]
+  removeKnot() -> bool
+  scaleKnotsToBounds()
+  segment()
+  setKnot()
+  setKnots()
+  setNotPeriodic()
+  setOrigin()
+  setPeriodic()
+  setPole()
+  setWeight()
+  toBezier() -> list[BezierCurve]
+  toBiArcs() -> list[Any]
+
+BSplineSurface : GeometrySurface
+  # This class can be imported.
+    Describes a B-Spline surface in 3D space
+  FirstUKnotIndex: int
+  FirstVKnotIndex: int
+  LastUKnotIndex: int
+  LastVKnotIndex: int
+  MaxDegree: int
+  NbUKnots: int
+  NbUPoles: int
+  NbVKnots: int
+  NbVPoles: int
+  UDegree: int
+  UKnotSequence: list[float]
+  VDegree: int
+  VKnotSequence: list[float]
+  approximate(Points: , DegMin: int, DegMax: int, Continuity: int, Tolerance: float, X0: float, dX: float, Y0: float, dY: float, ParamType: str, LengthWeight: float, CurvatureWeight: float, TorsionWeight: float)
+  bounds() -> tuple[float, float, float, float]
+  buildFromNSections()
+  buildFromPolesMultsKnots(poles: , umults: , vmults: , uknots: , vknots: , uperiodic: bool, vperiodic: bool, udegree: int, vdegree: int, weights: )
+  exchangeUV()
+  getPole() -> Vector
+  getPoles() -> list[list[Vector]]
+  getPolesAndWeights() -> list[list[tuple[float, float, float, float]]]
+  getResolution() -> tuple[float, float]
+  getUKnot() -> float
+  getUKnots() -> list[float]
+  getUMultiplicities() -> list[int]
+  getUMultiplicity() -> int
+  getVKnot() -> float
+  getVKnots() -> list[float]
+  getVMultiplicities() -> list[int]
+  getVMultiplicity() -> int
+  getWeight() -> float
+  getWeights() -> list[list[float]]
+  increaseDegree()
+  increaseUMultiplicity()
+  increaseVMultiplicity()
+  incrementUMultiplicity()
+  incrementVMultiplicity()
+  insertUKnot()
+  insertUKnots()
+  insertVKnot()
+  insertVKnots()
+  interpolate()
+  isUClosed() -> bool
+  isUPeriodic() -> bool
+  isURational() -> bool
+  isVClosed() -> bool
+  isVPeriodic() -> bool
+  isVRational() -> bool
+  movePoint() -> tuple[int, int, int, int]
+  removeUKnot() -> bool
+  removeVKnot() -> bool
+  reparametrize() -> BSplineSurface
+  scaleKnotsToBounds()
+  segment()
+  setPole()
+  setPoleCol()
+  setPoleRow()
+  setUKnot()
+  setUKnots()
+  setUNotPeriodic()
+  setUOrigin()
+  setUPeriodic()
+  setVKnot()
+  setVKnots()
+  setVNotPeriodic()
+  setVOrigin()
+  setVPeriodic()
+  setWeight()
+  setWeightCol()
+  setWeightRow()
+
+BezierCurve : BoundedCurve
+  Degree: int
+  EndPoint: Vector
+  MaxDegree: int
+  NbPoles: int
+  StartPoint: Vector
+  getPole() -> Vector
+  getPoles() -> list[Vector]
+  getResolution() -> float
+  getWeight() -> float
+  getWeights() -> list[float]
+  increase()
+  insertPoleAfter()
+  insertPoleBefore()
+  interpolate()
+  isClosed() -> bool
+  isPeriodic() -> bool
+  isRational() -> bool
+  removePole()
+  segment()
+  setPole()
+  setPoles()
+  setWeight()
+
+BezierSurface : GeometrySurface
+  MaxDegree: int
+  NbUPoles: int
+  NbVPoles: int
+  UDegree: int
+  VDegree: int
+  bounds() -> tuple[float, float, float, float]
+  exchangeUV()
+  getPole() -> Vector
+  getPoles() -> list[list[Vector]]
+  getResolution() -> tuple[float, float]
+  getWeight() -> float
+  getWeights() -> list[list[float]]
+  increase()
+  insertPoleColAfter()
+  insertPoleColBefore()
+  insertPoleRowAfter()
+  insertPoleRowBefore()
+  isUClosed() -> bool
+  isUPeriodic() -> bool
+  isURational() -> bool
+  isVClosed() -> bool
+  isVPeriodic() -> bool
+  isVRational() -> bool
+  removePoleCol()
+  removePoleRow()
+  segment()
+  setPole()
+  setPoleCol()
+  setPoleRow()
+  setWeight()
+  setWeightCol()
+  setWeightRow()
+
+BezierTools
+  # 1.  REDIRECT [Draft_Workbench#Draft_BezierTools](Draft_Workbench#Draft_BezierTools.md)
+
+Booleans
+  # 1.  REDIRECT [Part_Boolean](Part_Boolean.md)
+
+Circle : Conic
+  Radius: float
+
+Circle3Point
+  # 1.  REDIRECT [Sketcher_Create3PointCircle](Sketcher_Create3PointCircle.md)
+
+Compound : Shape
+  # This class can be imported.
+    Create a compound out of a list of shapes
+  add()
+  connectEdgesToWires() -> Compound
+  setFaces()
+
+CompoundFilter
+  # ![](images/CompoundFilter.png )
+
+Cone : GeometrySurface
+  Apex: Vector
+  Axis: Vector
+  Center: Vector
+  Radius: float
+  SemiAngle: float
+
+Cylinder : GeometrySurface
+  Axis: Vector
+  Center: Vector
+  Radius: float
+
+Edge : PyObjectBase
+  Bound: bool
+  Index: int
+  Length: float
+  NeighbourIndices: tuple[int, Ellipsis]
+  PointIndices: tuple[int, Ellipsis]
+  Points: list[tuple[float, float, float]]
+  intersectWithEdge() -> list[tuple[float, float, float]]
+  isCollinear() -> bool
+  isParallel() -> bool
+  unbound()
+
+Edge : Shape
+  # This class can be imported.
+    TopoShapeEdge is the OpenCasCade topological edge wrapper
+  CenterOfMass: Vector
+  Closed: bool
+  Continuity: str
+  Curve: PyObjectBase
+  Degenerated: bool
+  FirstParameter: float
+  LastParameter: float
+  Length: float
+  Mass: float
+  MatrixOfInertia: Matrix
+  ParameterRange: tuple[float, float]
+  PrincipalProperties: ReturnGetPrincipalPropertiesDict
+  StaticMoments: tuple[float, float, float]
+  Tolerance: float
+  centerOfCurvatureAt() -> Vector
+  countNodes() -> int
+  curvatureAt() -> float
+  curveOnSurface() -> tuple[Curve2d, GeometrySurface, Placement, float, float]
+  derivative1At() -> Vector
+  derivative2At() -> Vector
+  derivative3At() -> Vector
+  discretize(Angular: float, Curvature: float, First: float, Last: float, Minimum: int) -> list[Vector]
+  firstVertex() -> Vertex
+  getParameterByLength() -> float
+  isSeam() -> bool
+  lastVertex() -> Vertex
+  normalAt() -> Vector
+  parameterAt() -> float
+  parameters() -> list | list[float]
+  split() -> Wire
+  tangentAt() -> Vector
+  valueAt() -> Vector
+
+Ellipse : Conic
+  Focal: float
+  Focus1: Vector
+  Focus2: Vector
+  MajorRadius: float
+  MinorRadius: float
+
+Face : Shape
+  # This class can be imported.
+    TopoShapeFace is the OpenCasCade topological face wrapper
+  CenterOfMass: Vector
+  Mass: float
+  MatrixOfInertia: Matrix
+  OuterWire: PyObjectBase
+  ParameterRange: tuple[float, float, float, float]
+  PrincipalProperties: ReturnGetPrincipalPropertiesDict
+  StaticMoments: tuple[float, float, float]
+  Surface: PyObjectBase | None
+  Tolerance: float
+  Wire: object
+  addWire()
+  countNodes() -> int
+  countTriangles() -> int
+  curvatureAt() -> tuple[float, float]
+  curveOnSurface() -> tuple[Curve2d, float, float]
+  cutHoles()
+  derivative1At() -> tuple[Vector, Vector]
+  derivative2At() -> tuple[Vector, Vector]
+  getUVNodes() -> list | list[tuple[float, float]]
+  isPartOfDomain() -> bool
+  makeEvolved(Profile: Wire, Join: int, AxeProf: bool, Solid: bool, ProfOnSpine: bool, Tolerance: float) -> Shape
+  makeHalfSpace() -> Solid
+  makeOffset() -> Shape
+  normalAt() -> Vector
+  tangentAt() -> tuple[Vector, Vector]
+  validate()
+  valueAt() -> Vector
+
+FaceColors
+  # 1.  REDIRECT [Part_ColorPerFace](Part_ColorPerFace.md)
+
+FacePocket
+  # 1.  REDIRECT [CAM_Pocket_Shape](CAM_Pocket_Shape.md)
+
+FaceProfile
+  # 1.  REDIRECT [CAM_Profile](CAM_Profile.md)
+
+Facet : PyObjectBase
+  Area: float
+  AspectRatio: float
+  AspectRatio2: float
+  Bound: bool
+  CircumCircle: tuple[Vector, float] | None
+  InCircle: tuple[Vector, float] | None
+  Index: int
+  NeighbourIndices: tuple | tuple[int, Ellipsis]
+  Normal: Vector
+  PointIndices: tuple | tuple[int, Ellipsis]
+  Points: list[tuple[float, float, float]]
+  Roundness: float
+  getEdge() -> Edge
+  intersect() -> list[tuple[float, float, float]]
+  isDeformed() -> bool
+  isDegenerated() -> bool
+  unbound()
+
+Feature : GeoFeature
+  Mesh: Mesh
+  countFacets() -> int
+  countPoints() -> int
+  fixDegenerations()
+  fixIndices()
+  fixSelfIntersections()
+  harmonizeNormals()
+  removeDuplicatedFacets()
+  removeDuplicatedPoints()
+  removeFoldsOnSurface()
+  removeInvalidPoints()
+  removeNonManifoldPoints()
+  removeNonManifolds()
+  smooth()
+
+Feature : GeoFeature
+  # This class can be imported.
+    This is the father of all shape object classes
+  Shape: Shape
+
+Feature : Feature
+  # This is the father of all PartDesign object classes
+  BaseFeature: DocumentObject | None
+  _Body: DocumentObject | None
+  getBaseObject() -> DocumentObjectPy | None
+
+GeomFormat : PyObjectBase
+  # GeomFormat specifies appearance parameters for TechDraw Geometry objects
+  Tag: str
+  clone() -> GeomFormat
+  copy() -> GeomFormat
+
+GeomHatch
+  # 1.  REDIRECT [TechDraw_GeometricHatch](TechDraw_GeometricHatch.md)
+
+Geometry : Persistence
+  Tag: str
+  clone() -> Geometry
+  copy() -> Geometry
+  deleteExtensionOfName()
+  deleteExtensionOfType()
+  getExtensionOfName() -> GeometryExtension
+  getExtensionOfType() -> GeometryExtension
+  getExtensions() -> list[GeometryExtension]
+  hasExtensionOfName() -> bool
+  hasExtensionOfType() -> bool
+  mirror()
+  rotate()
+  scale()
+  setExtension()
+  transform()
+  translate()
+
+GeometryBoolExtension : GeometryExtension
+  # This class can be imported.
+    A GeometryExtension extending geometry objects with a boolean.
+  Value: bool
+
+GeometryDoubleExtension : GeometryExtension
+  # This class can be imported.
+    A GeometryExtension extending geometry objects with a double.
+  Value: float
+
+GeometryExtension : PyObjectBase
+  Name: str
+  copy() -> GeometryExtension
+
+GeometryFacade : BaseClass
+  # This class can be imported.
+    Describes a GeometryFacade
+  Blocked: bool
+  Construction: bool
+  Geometry: Geometry
+  GeometryLayerId: int
+  Id: int
+  InternalType: str
+  Tag: str
+  deleteExtensionOfName()
+  deleteExtensionOfType()
+  getExtensionOfName() -> GeometryExtension
+  getExtensionOfType() -> GeometryExtension
+  getExtensions() -> list[GeometryExtension]
+  hasExtensionOfName() -> bool
+  hasExtensionOfType() -> bool
+  mirror()
+  rotate()
+  scale()
+  setExtension()
+  setGeometryMode()
+  testGeometryMode() -> bool
+  transform()
+  translate()
+
+GeometryIntExtension : GeometryExtension
+  # This class can be imported.
+    A GeometryExtension extending geometry objects with an int.
+  Value: int
+
+GeometryStringExtension : GeometryExtension
+  # This class can be imported.
+    A GeometryExtension extending geometry objects with a string.
+  Value: str
+
+GeometrySurface : Geometry
+  # The abstract class GeometrySurface is the root class of all surface objects.
+  Continuity: str
+  Rotation: object | Rotation
+  UPeriod() -> float
+  VPeriod() -> float
+  bounds() -> tuple[float, float, float, float]
+  curvature() -> float
+  curvatureDirections() -> tuple[Vector, Vector]
+  getD0() -> Vector
+  getDN() -> Vector
+  intersect() -> int | Any
+  intersectSS() -> list[Any]
+  isPlanar() -> bool
+  isUClosed() -> bool
+  isUPeriodic() -> bool
+  isUmbillic() -> bool
+  isVClosed() -> bool
+  isVPeriodic() -> bool
+  normal() -> Vector
+  parameter() -> tuple[float, float]
+  projectPoint(Point: Vector, Method: str) -> Vector | float | tuple[float, float] | list[float] | list[tuple[float, float]] | list[Vector]
+  tangent() -> tuple[Vector, Vector]
+  toBSpline(Tol3d: float, UContinuity: str, VContinuity: str, MaxDegreeU: int, MaxDegreeV: int, MaxSegments: int, PrecisCode: int) -> BSplineSurface
+  toShape() -> Face
+  toShell(Bounds: tuple, Segment: bool) -> Shell
+  uIso() -> Line | Any
+  vIso() -> Line | Any
+  value() -> Vector
+
+Hyperbola : Conic
+  Focal: float
+  Focus1: Vector
+  Focus2: Vector
+  MajorRadius: float
+  MinorRadius: float
+
+Line : Curve
+  Direction: Vector
+  Location: Vector
+
+LineSegment : TrimmedCurve
+  EndPoint: Vector
+  StartPoint: Vector
+  setParameterRange()
+
+Linestyle
+  # 1.  REDIRECT [Draft_Tray](Draft_Tray.md)
+
+Parabola : Conic
+  # This class can be imported.
+    Describes a parabola in 3D space
+  Focal: float
+  Focus: Vector
+  Parameter: float
+  compute()
+
+Part : GeoFeature
+  # This class can be imported.
+    This class handles document objects in Part
+  Color: tuple[float, float, float, float]
+  Id: str
+  License: str
+  LicenseURL: str
+  Material: DocumentObject | None
+  Meta: dict[str, str]
+  Type: str
+  Uid: str
+
+Part2DObject : Feature
+  # This class can be imported.
+    This object represents a 2D Shape in a 3D World
+
+Plane : GeometrySurface
+  Axis: Vector
+  Position: Vector
+
+Shape : ComplexGeoData
+  Area: float
+  CompSolids: list[CompSolid]
+  Compounds: list[Compound]
+  Edges: list[Edge]
+  Faces: list[Face]
+  Length: float
+  Orientation: str
+  ShapeType: str
+  Shells: list[Shell]
+  Solids: list[Solid]
+  SubShapes: list[Shape]
+  Vertexes: list[Vertex]
+  Volume: float
+  Wires: list[Wire]
+  ancestorsOfType() -> list[Shape]
+  check()
+  childShapes() -> list[Compound | CompSolid | Solid | Shell | Face | Wire | Edge | Vertex]
+  cleaned() -> Shape
+  common() -> Shape
+  complement()
+  copy() -> Shape
+  countElement() -> int
+  cut() -> Shape
+  defeaturing() -> Shape
+  distToShape() -> tuple[float, list[tuple[Vector, Vector]], list[tuple[str, int, float | tuple[float, float] | None, str, int, float | tuple[float, float] | None]]]
+  dumpToString() -> str
+  dumps()
+  exportBinary()
+  exportBrep()
+  exportBrepToString() -> str
+  exportIges()
+  exportStep()
+  exportStl()
+  extrude() -> Compound | CompSolid | Solid | Shell | Face | Edge
+  findPlane() -> Plane
+  fix() -> bool
+  fixTolerance()
+  fuse() -> Shape
+  generalFuse() -> tuple[Shape, list[list[Shape]]]
+  getElement() -> Face | Edge | Vertex
+  getTolerance() -> float
+  globalTolerance() -> float
+  hashCode() -> int
+  importBinary()
+  importBrep()
+  importBrepFromString()
+  inTolerance() -> tuple[Shape, Ellipsis]
+  isClosed() -> bool
+  isCoplanar() -> bool
+  isEqual() -> bool
+  isInfinite() -> bool
+  isInside() -> bool
+  isNull() -> bool
+  isPartner() -> bool
+  isSame() -> bool
+  isValid() -> bool
+  limitTolerance() -> bool
+  loads()
+  makeChamfer() -> Shape
+  makeFillet() -> Shape
+  makeOffset2D(offset: float, join: int, fill: bool, openResult: bool, intersection: bool) -> Shape
+  makeOffsetShape(offset: float, tolerance: float, inter: bool, self_inter: bool, offsetMode: int, join: int, fill: bool) -> Shape
+  makeParallelProjection() -> Shape
+  makePerspectiveProjection() -> Shape
+  makeShapeFromMesh()
+  makeThickness() -> Solid
+  makeWires() -> Shape
+  mirror() -> Shape
+  multiFuse() -> Shape
+  nullify()
+  oldFuse() -> Shape
+  optimalBoundingBox() -> BoundBox
+  overTolerance() -> tuple[Shape, Ellipsis]
+  project() -> Shape
+  proximity() -> tuple[list[int], list[int]]
+  read()
+  reflectLines(ViewDir: Vector, ViewPos: Vector, UpDir: Vector, EdgeType: str, Visible: bool, OnShape: bool) -> Shape
+  removeInternalWires() -> bool
+  removeShape() -> Shape
+  removeSplitter() -> Shape
+  replaceShape() -> Shape
+  reverse()
+  reversed() -> Shape
+  revolve() -> Compound | CompSolid | Solid | Shell | Face | Edge
+  rotate() -> Shape
+  rotated()
+  scale() -> Shape
+  scaled(base: )
+  section() -> Shape
+  sewShape()
+  slice() -> list[Wire]
+  slices() -> Compound
+  tessellate() -> tuple[list[Vector], list[tuple[int, int, int]]]
+  toNurbs() -> Shape
+  transformGeometry() -> Shape
+  transformShape() -> Shape
+  transformed(matrix: Matrix, copy: bool, checkScale: bool, op: str) -> Shape
+  translate() -> Shape
+  translated()
+  writeInventor(Mode: int, Deviation: float, Angle: float, FaceColors: ) -> str
+
+Shapebuilder
+  # 1.  REDIRECT [Part_Builder](Part_Builder.md)
+
+Shell : Shape
+  # This class can be imported.
+    Create a shell out of a list of faces
+  CenterOfMass: Vector
+  Mass: float
+  MatrixOfInertia: Matrix
+  PrincipalProperties: ReturnGetPrincipalPropertiesDict
+  StaticMoments: tuple[float, float, float]
+  add()
+  getBadEdges() -> Compound
+  getFreeEdges() -> Compound
+  makeHalfSpace() -> Solid
+
+Solid : Shape
+  CenterOfMass: Vector
+  Mass: float
+  MatrixOfInertia: Matrix
+  OuterShell: Shell
+  PrincipalProperties: ReturnGetPrincipalPropertiesDict
+  StaticMoments: tuple[float, float, float]
+  getMomentOfInertia() -> float
+  getRadiusOfGyration() -> float
+  offsetFaces() -> Solid
+
+Sphere : GeometrySurface
+  # This class can be imported.
+    Describes a sphere in 3D space
+  Area: float
+  Axis: Vector
+  Center: Vector
+  Radius: float
+  Volume: float
+
+Surface
+  # 1.  REDIRECT [CAM_Surface](CAM_Surface.md)
+
+SurfaceFinishSymbol
+  # 1.  REDIRECT [TechDraw_SurfaceFinishSymbols](TechDraw_SurfaceFinishSymbols.md)
+
+SurfaceOfExtrusion : GeometrySurface
+  # This class can be imported.
+    Describes a surface of linear extrusion
+  BasisCurve: object
+  Direction: Vector
+
+SurfaceOfRevolution : GeometrySurface
+  # This class can be imported.
+    Describes a surface of revolution
+  BasisCurve: object
+  Direction: Vector
+  Location: Vector
+
+Torus
+  # 1.  REDIRECT [Mesh_BuildRegularSolid](Mesh_BuildRegularSolid.md)
+
+Vertex : Shape
+  # This class can be imported.
+    TopoShapeVertex is the OpenCasCade topological vertex wrapper
+  Point: PyObjectBase
+  Tolerance: float
+  X: float
+  Y: float
+  Z: float
+
+Wire : Shape
+  # This class can be imported.
+    TopoShapeWire is the OpenCasCade topological wire wrapper
+  CenterOfMass: Vector
+  Continuity: str
+  Mass: float
+  MatrixOfInertia: Matrix
+  OrderedEdges: list[Shape]
+  OrderedVertexes: list[Shape]
+  PrincipalProperties: ReturnGetPrincipalPropertiesDict
+  StaticMoments: tuple[float, float, float]
+  add()
+  approximate(Tol2d: float, Tol3d: float, MaxSegments: int, MaxDegree: int) -> BSplineCurve
+  discretize(QuasiDeflection: float, First: float, Last: float) -> list[Vector]
+  fixWire()
+  makeEvolved(Profile: Wire, Join: int, AxeProf: bool, Solid: bool, ProfOnSpine: bool, Tolerance: float) -> Shape
+  makeHomogenousWires() -> Wire | Any
+  makeOffset() -> Shape
+  makePipe() -> Shape
+  makePipeShell() -> Shape

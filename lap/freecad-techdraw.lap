@@ -1,0 +1,204 @@
+# freecad-techdraw.lap
+
+[classes]
+CenterLine : PyObjectBase
+  # CenterLine specifies additional mark up edges in a View
+  Edges: list
+  Extension: float
+  Faces: list
+  Flip: bool
+  Format: ReturnGetFormatDict
+  HorizShift: float
+  Mode: int
+  Points: list
+  Rotation: float
+  Tag: str
+  Type: int
+  VertShift: float
+  clone() -> CenterLine
+  copy() -> CenterLine
+
+CenterLineGroup
+
+CosmeticEdge : PyObjectBase
+  # CosmeticEdge specifies an extra (cosmetic) edge in Views
+  Center: Vector
+  End: Vector
+  Format: ReturnGetFormatDict
+  Radius: float
+  Start: Vector
+  Tag: str
+  clone() -> CosmeticEdge
+  copy() -> CosmeticEdge
+
+CosmeticExtension : DocumentObjectExtension
+  # This object represents cosmetic features for a DrawViewPart.
+  CenterLines: list[CenterLine]
+  CosmeticEdges: list[CosmeticEdge]
+  CosmeticVertexes: list[CosmeticVertex]
+  GeomFormats: list[GeomFormat]
+
+CosmeticVertex : PyObjectBase
+  # CosmeticVertex specifies an extra (cosmetic) vertex in Views
+  Color: object
+  Point: Vector
+  Show: bool
+  Size: float
+  Style: int
+  Tag: str
+  clone() -> CosmeticVertex
+  copy() -> CosmeticVertex
+
+CosmeticVertexGroup
+
+DrawPage : DocumentObject
+  # Feature for creating and manipulating Technical Drawing Pages
+  KeepUpdated: bool
+  NextBalloonIndex: int
+  PageHeight: float
+  PageOrientation: str
+  PageWidth: float
+  ProjectionType: int
+  Scale: float
+  Template: DocumentObject | None
+  Views: list[DocumentObject | None]
+  addView() -> int
+  getAllViews() -> list[DrawProjGroupItem | DrawViewPart | DrawViewAnnotation | DrawView]
+  removeView() -> int
+  requestPaint()
+  translateLabel()
+
+DrawTemplate : DocumentObject
+  # Feature for creating and manipulating Technical Drawing Templates
+  EditableTexts: dict[str, str]
+  Height: Quantity
+  Orientation: int
+  Width: Quantity
+
+DrawView : DocumentObject
+  # Feature for creating and manipulating Technical Drawing Views
+  Caption: str
+  LockPosition: bool
+  Rotation: Quantity
+  Scale: float
+  ScaleType: int
+  X: Quantity
+  Y: Quantity
+  translateLabel()
+
+DrawViewAnnotation : DrawView
+  # Feature for creating and manipulating Technical Drawing Annotation Views
+  Font: str
+  LineSpace: int
+  MaxWidth: float
+  Text: list[str]
+  TextColor: tuple[float, float, float, float]
+  TextSize: Quantity
+  TextStyle: int
+
+DrawViewClip : DrawView
+  # Feature for creating and manipulating Technical Drawing Clip Views
+  Height: Quantity
+  ShowFrame: bool
+  Views: list[DocumentObject | None]
+  Width: Quantity
+  addView()
+  getChildViewNames() -> list[str]
+  removeView()
+
+DrawViewCollection : DrawView
+  # Feature for creating and manipulating Technical Drawing View Collections
+  Views: list[DocumentObject | None]
+  addView() -> int
+  removeView() -> int
+
+DrawViewDimExtent : DrawViewDimension
+  # Feature for creating and manipulating Technical Drawing DimExtents
+  CosmeticTags: list[str]
+  DirExtent: int
+  Source: list[tuple[DocumentObject, list[str]]]
+  Source3d: list[tuple[DocumentObject, list[str]]]
+  tbd()
+
+DrawViewDimension : DrawView
+  # Feature for creating and manipulating Technical Drawing Dimensions
+  AngleOverride: bool
+  Arbitrary: bool
+  ArbitraryTolerances: bool
+  EqualTolerance: bool
+  ExtensionAngle: Quantity
+  FormatSpec: str
+  FormatSpecOverTolerance: str
+  FormatSpecUnderTolerance: str
+  Inverted: bool
+  LineAngle: Quantity
+  MeasureType: int
+  OverTolerance: Quantity
+  References2D: list[tuple[DocumentObject, list[str]]]
+  References3D: list[tuple[DocumentObject, list[str]]]
+  SavedGeometry
+  TheoreticalExact: bool
+  Type: int
+  UnderTolerance: Quantity
+  getAnglePoints() -> list[Vector]
+  getArcPoints() -> list[Vector]
+  getArrowPositions() -> list[Vector]
+  getLinearPoints() -> list[Vector]
+  getRawValue() -> float
+  getText()
+
+DrawViewPart : DrawView
+  # Feature for creating and manipulating Technical Drawing Part Views
+  CoarseView: bool
+  Direction: Vector
+  Focus: Quantity
+  HardHidden: bool
+  IsoCount: int
+  IsoHidden: bool
+  IsoVisible: bool
+  Perspective: bool
+  ScrubCount: int
+  SeamHidden: bool
+  SeamVisible: bool
+  SmoothHidden: bool
+  SmoothVisible: bool
+  Source: list[DocumentObject | None]
+  XDirection: Vector
+  XSource: list[tuple[DocumentObject, list[str]]] | list[DocumentObject]
+  clearCenterLines()
+  clearCosmeticEdges()
+  clearCosmeticVertices()
+  clearGeomFormats()
+  formatGeometricEdge()
+  getCenterLine() -> CenterLine
+  getCenterLineBySelection() -> CenterLine
+  getCosmeticEdge() -> CosmeticEdge
+  getCosmeticEdgeBySelection() -> CosmeticEdge
+  getCosmeticVertex() -> CosmeticVertex
+  getCosmeticVertexBySelection() -> CosmeticVertex
+  getEdgeByIndex() -> Edge
+  getEdgeBySelection() -> Edge
+  getHiddenEdges() -> list[Edge]
+  getVertexByIndex() -> Vertex
+  getVertexBySelection() -> Vertex
+  getVisibleEdges() -> list[Edge]
+  makeCenterLine() -> str
+  makeCosmeticCircle() -> str
+  makeCosmeticCircle3d() -> str
+  makeCosmeticCircleArc() -> str
+  makeCosmeticCircleArc3d() -> str
+  makeCosmeticLine() -> str
+  makeCosmeticLine3D() -> str
+  makeCosmeticVertex() -> str
+  makeCosmeticVertex3d() -> str
+  projectPoint() -> Vector
+  removeCenterLine()
+  removeCosmeticEdge()
+  removeCosmeticVertex()
+  requestPaint()
+
+DrawViewSymbol : DrawView
+  # Feature for creating and manipulating Drawing SVG Symbol Views
+  EditableTexts: list[str]
+  Symbol: str
+  dumpSymbol()

@@ -1,0 +1,21 @@
+# freecad-assembly.lap
+
+[classes]
+AssemblyLink : Part
+  # This class handles document objects in Assembly
+  LinkedObject: None | DocumentObject | tuple[DocumentObject, str | list[str]]
+  Rigid: bool
+
+AssemblyObject : Part
+  # This class handles document objects in Assembly
+  clearUndo()
+  ensureIdentityPlacements()
+  exportAsASMT()
+  isJointConnectingPartToGround() -> bool
+  isPartConnected() -> bool
+  isPartGrounded() -> bool
+  solve() -> int
+  undoSolve()
+
+JointGroup : DocumentObjectGroup
+  # This class is a group subclass for joints.

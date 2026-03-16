@@ -1,0 +1,153 @@
+# freecad-sketcher.lap
+
+[classes]
+CompToggleConstraints
+
+Constraint : Persistence
+  # This class can be imported.
+    With this object you can handle sketches
+  Driving: bool
+  First: int
+  FirstPos: int
+  InVirtualSpace: bool
+  IsActive: bool
+  Name: str
+  Second: int
+  SecondPos: int
+  Third: int
+  ThirdPos: int
+  Type: str
+  Value: float
+
+Part2DObject : Feature
+  # This class can be imported.
+    This object represents a 2D Shape in a 3D World
+
+Profile
+  # 1.  REDIRECT [CAM_Profile](CAM_Profile.md)
+
+ProfileEdges
+  # 1.  REDIRECT [CAM_Profile](CAM_Profile.md)
+
+ProfileFace
+  # 1.  REDIRECT [CAM_Profile](CAM_Profile.md)
+
+Sketch : Persistence
+  # This class can be imported.
+    With this objects you can handle constraint sketches
+  Conflicts: tuple[int, Ellipsis]
+  Constraint: int
+  Geometries: tuple
+  Redundancies: tuple[int, Ellipsis]
+  Shape: Shape
+  addConstraint() -> tuple[int, Ellipsis] | int
+  addGeometry() -> int | tuple[int, Ellipsis]
+  clear()
+  movePoint() -> int
+  solve() -> int
+
+SketchGeometryExtension : GeometryExtension
+  # This class can be imported.
+    Describes a SketchGeometryExtension
+  Blocked: bool
+  Construction: bool
+  GeometryLayerId: int
+  Id: int
+  InternalType: str
+  setGeometryMode()
+  testGeometryMode() -> bool
+
+SketchObject : Part2DObject
+  # Represents a sketch object
+  AxisCount: int
+  ConflictingConstraints: list[int]
+  ConstraintCount: int
+  Constraints: list[Constraint]
+  DoF: int
+  ExternalGeometry: list[tuple[DocumentObject, list[str]]]
+  FullyConstrained: bool
+  Geometry: list[Geometry]
+  GeometryCount: int
+  GeometryFacadeList: list[GeometryFacade]
+  MalformedConstraints: list[int]
+  MissingLineEqualityConstraints: list[tuple[int, int, int, int]]
+  MissingPointOnPointConstraints: list[tuple[int, int, int, int, int]]
+  MissingRadiusConstraints: list[tuple[int, int, int, int]]
+  MissingVerticalHorizontalConstraints: list[tuple[int, int, int, int, int]]
+  OpenVertices: list[tuple[float, float, float]]
+  PartiallyRedundantConstraints: list[int]
+  RedundantConstraints: list[int]
+  DeleteUnusedInternalGeometry()
+  ExposeInternalGeometry()
+  addConstraint() -> int | tuple[int, Ellipsis]
+  addCopy() -> tuple[int, Ellipsis]
+  addExternal()
+  addGeometry() -> int | tuple[int, Ellipsis]
+  addMove()
+  addRectangularArray()
+  addSymmetric() -> tuple[int, Ellipsis]
+  analyseMissingPointOnPointCoincident()
+  autoRemoveRedundants()
+  autoconstraint()
+  calculateAngleViaPoint() -> float
+  calculateConstraintError() -> float
+  carbonCopy()
+  changeConstraintsLocking() -> int
+  convertToNURBS()
+  decreaseBSplineDegree() -> bool
+  delConstraint()
+  delConstraintOnPoint()
+  delExternal()
+  delGeometries()
+  delGeometry()
+  deleteAllConstraints()
+  deleteAllGeometry()
+  deleteUnusedInternalGeometry()
+  detectMissingEqualityConstraints() -> int
+  detectMissingPointOnPointConstraints() -> int
+  detectMissingVerticalHorizontalConstraints() -> int
+  exposeInternalGeometry()
+  extend()
+  fillet()
+  getActive() -> bool
+  getAxis() -> Axis
+  getConstruction() -> bool
+  getDatum() -> Quantity
+  getDriving() -> bool
+  getGeoVertexIndex() -> tuple[int, int]
+  getGeometryId() -> int
+  getGeometryWithDependentParameters() -> list[tuple[int, int]]
+  getIndexByName() -> int
+  getPoint() -> Vector
+  getVirtualSpace() -> bool
+  increaseBSplineDegree()
+  insertBSplineKnot()
+  isPointOnCurve() -> bool
+  join()
+  makeMissingEquality()
+  makeMissingPointOnPointCoincident()
+  makeMissingVerticalHorizontal()
+  modifyBSplineKnotMultiplicity()
+  moveDatumsToEnd()
+  movePoint()
+  removeAxesAlignment()
+  renameConstraint()
+  setActive()
+  setConstruction()
+  setDatum()
+  setDatumsDriving()
+  setDriving()
+  setGeometryId()
+  setVirtualSpace()
+  solve() -> int
+  split()
+  toPythonCommands() -> tuple[str, Ellipsis]
+  toggleActive()
+  toggleConstruction()
+  toggleDriving()
+  toggleVirtualSpace()
+  trim()
+
+SketchObjectSF : Part2DObject
+  # With this objects you can handle sketches
+  SketchFlatFile: str

@@ -1,0 +1,18 @@
+# freecad-partdesign.lap
+
+[classes]
+Body : BodyBase
+  # PartDesign body class
+  VisibleFeature: Any | object
+  insertObject()
+
+Loft_Technical_Details
+
+Pocket_3D
+  # 1.  REDIRECT [CAM_Pocket_3D](CAM_Pocket_3D.md)
+
+Pocket_Shape
+  # 1.  REDIRECT [CAM_Pocket_Shape](CAM_Pocket_Shape.md)
+
+ThreadMilling
+  # 1.  REDIRECT [CAM_ThreadMilling](CAM_ThreadMilling.md)

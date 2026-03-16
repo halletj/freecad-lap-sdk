@@ -1,0 +1,61 @@
+# freecad-path.lap
+
+[classes]
+Job
+  # 1.  REDIRECT [CAM_Job](CAM_Job.md)
+
+Path : Persistence
+  BoundBox: BoundBox
+  Center: Vector
+  Commands: list[Command]
+  Length: float
+  Size: int
+  addCommands() -> Path
+  copy() -> Path
+  deleteCommand() -> Path
+  getCycleTime() -> float
+  insertCommand() -> Path
+  setFromGCode() -> None
+  toGCode() -> str
+
+Post
+  # 1.  REDIRECT [CAM_Post](CAM_Post.md)
+
+PostprocessorCustomization
+  # 1.  REDIRECT [CAM_Postprocessor_Customization](CAM_Postprocessor_Customization.md)
+
+Postprocessor_Customization
+  # 1.  REDIRECT [CAM_Postprocessor_Customization](CAM_Postprocessor_Customization.md)
+
+SetupSheet
+  # 1.  REDIRECT [CAM_SetupSheet](CAM_SetupSheet.md)
+
+ToolBit
+  # 1.  REDIRECT [CAM_ToolBit](CAM_ToolBit.md)
+
+ToolBitDock
+  # 1.  REDIRECT [CAM_ToolBitDock](CAM_ToolBitDock.md)
+
+ToolBitLibraryOpen
+  # 1.  REDIRECT [CAM_ToolBitLibraryOpen](CAM_ToolBitLibraryOpen.md)
+
+ToolBit_Dock
+  # 1.  REDIRECT [CAM_ToolBitDock](CAM_ToolBitDock.md)
+
+ToolBit_Library
+  # 1.  REDIRECT [CAM_ToolBit_Library](CAM_ToolBit_Library.md)
+
+ToolBit_Library_Manager
+  # 1.  REDIRECT [CAM_ToolBitLibraryOpen](CAM_ToolBitLibraryOpen.md)
+
+ToolController
+  # 1.  REDIRECT [CAM_ToolController](CAM_ToolController.md)
+
+ToolLibraryEdit
+  # 1.  REDIRECT [CAM_ToolBitLibraryOpen](CAM_ToolBitLibraryOpen.md)
+
+ToolShape
+  # 1.  REDIRECT [CAM_ToolShape](CAM_ToolShape.md)
+
+Tools
+  # 1.  REDIRECT [CAM_Tools](CAM_Tools.md)

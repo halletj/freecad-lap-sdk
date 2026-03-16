@@ -1,0 +1,26 @@
+# freecad-draft.lap
+
+[classes]
+Array
+  # 1.  REDIRECT [CAM_Array](CAM_Array.md)
+
+Wire : Shape
+  # This class can be imported.
+    TopoShapeWire is the OpenCasCade topological wire wrapper
+  CenterOfMass: Vector
+  Continuity: str
+  Mass: float
+  MatrixOfInertia: Matrix
+  OrderedEdges: list[Shape]
+  OrderedVertexes: list[Shape]
+  PrincipalProperties: ReturnGetPrincipalPropertiesDict
+  StaticMoments: tuple[float, float, float]
+  add()
+  approximate(Tol2d: float, Tol3d: float, MaxSegments: int, MaxDegree: int) -> BSplineCurve
+  discretize(QuasiDeflection: float, First: float, Last: float) -> list[Vector]
+  fixWire()
+  makeEvolved(Profile: Wire, Join: int, AxeProf: bool, Solid: bool, ProfOnSpine: bool, Tolerance: float) -> Shape
+  makeHomogenousWires() -> Wire | Any
+  makeOffset() -> Shape
+  makePipe() -> Shape
+  makePipeShell() -> Shape

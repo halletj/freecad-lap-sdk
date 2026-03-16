@@ -1,0 +1,298 @@
+# freecad-gui.lap
+
+[classes]
+Command : PyObjectBase
+  # This class can be imported.
+    FreeCAD Python wrapper of Command functions
+  @static createCustomCommand(macroFile: str, menuText: str, toolTip: str, whatsThis: str, statusTip: str, pixmap: str, shortcut: str) -> str
+  @static findCustomCommand() -> str
+  @static get() -> Command
+  getAction() -> list[QObject]
+  getInfo() -> dict[str, str]
+  getShortcut() -> str
+  isActive() -> bool
+  @static listAll() -> list[str]
+  @static listByShortcut() -> list[str]
+  @static removeCustomCommand() -> bool
+  resetShortcut() -> bool
+  run()
+  setShortcut() -> bool
+  @static update()
+
+Command : Persistence
+  Name: str
+  Parameters: dict
+  Placement: Placement
+  setFromGCode() -> None
+  toGCode() -> str
+  transform() -> Command
+
+CommandAction
+  # This class can be imported.
+    Descriptor to access the action of the commands
+
+CommandVertexCreationGroup
+
+MDIViewPagePy
+  # Python binding class for the MDI view page class
+  cast_to_base()
+  getPage() -> DrawPage
+
+MDIViewPy : QMainWindow
+  # Python binding class for the MDI view class
+  message: Signal[__MDIView_message_0 | __MDIView_message_1 | __MDIView_message_2]
+  cast_to_base() -> MDIViewPy
+  fitAll() -> None
+  getActiveObject() -> DocumentObjectPy | tuple[DocumentObjectPy, DocumentObjectPy, str] | None
+  message() -> bool
+  printPdf() -> None
+  printPreview() -> None
+  printView() -> None
+  redoActions() -> list[str]
+  sendMessage() -> bool
+  setActiveObject() -> None
+  supportMessage() -> bool
+  undoActions() -> list[str]
+
+SelectionFilter
+
+SelectionObject : BaseClass
+  Document: Document
+  DocumentName: str
+  FullName: str
+  HasSubObjects: bool
+  Object: DocumentObjectPy
+  ObjectName: str
+  PickedPoints: tuple[Vector, Ellipsis]
+  SubElementNames: tuple[str, Ellipsis]
+  SubObjects: tuple[Any, Ellipsis]
+  TypeName: str
+  isObjectTypeOf() -> bool
+  remove()
+
+View3DInventorPy
+  # Python binding class for the Inventor viewer class
+  addDraggerCallback() -> Callable
+  addEventCallback() -> Callable
+  addEventCallbackPivy() -> Callable
+  addEventCallbackSWIG() -> Callable
+  boxZoom(XMin: int, YMin: int, XMax: int, YMax: int) -> None
+  cast_to_base()
+  dump() -> None
+  dumpNode() -> str
+  fitAll() -> None
+  getCamera() -> str
+  getCameraNode()
+  getCameraOrientation() -> Rotation
+  getCameraType() -> str
+  getCornerCrossSize() -> int
+  getCursorPos() -> tuple[int, int]
+  getNavigationType() -> str
+  getObjectInfo() -> ReturnGetObjectInfoDict | None
+  getObjectsInfo() -> ReturnGetObjectsInfoDict | list[ReturnGetObjectsInfoDict] | None
+  getPoint() -> Vector
+  getPointOnFocalPlane() -> Vector
+  getPointOnScreen() -> tuple[int, int]
+  getPointOnViewport() -> tuple[int, int]
+  getSceneGraph() -> SoSeparator
+  getSize() -> tuple[int, int]
+  getStereoType() -> str
+  getUpDirection() -> Vector
+  getViewDirection() -> Vector
+  getViewProvidersOfType() -> list[Any]
+  getViewer() -> View3DInventorViewerPy
+  graphicsView() -> QGraphicsView
+  hasAxisCross() -> bool
+  hasClippingPlane() -> bool
+  isAnimationEnabled() -> bool
+  isCornerCrossVisible() -> bool
+  isPopupMenuEnabled() -> bool
+  listCameraTypes() -> list
+  listNavigationTypes() -> list[str]
+  listStereoTypes() -> list
+  projectPointToLine() -> tuple[Vector, Vector]
+  redraw() -> None
+  removeAnnotation() -> None
+  removeDraggerCallback() -> Callable
+  removeEventCallback() -> None
+  removeEventCallbackPivy() -> Callable
+  removeEventCallbackSWIG() -> Callable
+  saveImage() -> None
+  saveVectorGraphic() -> None
+  setAnimationEnabled() -> None
+  setAnnotation() -> None
+  setAxisCross() -> None
+  setCamera() -> None
+  setCameraOrientation() -> None
+  setCameraType() -> None
+  setCornerCrossSize() -> None
+  setCornerCrossVisible() -> None
+  setName() -> None
+  setNavigationType() -> None
+  setPopupMenuEnabled() -> None
+  setStereoType() -> None
+  setViewDirection() -> None
+  startAnimating() -> None
+  stopAnimating() -> None
+  toggleClippingPlane(toggle: int, beforeEditing: bool, noManip: bool, pla: Placement) -> None
+  viewAxometric() -> None
+  viewAxonometric() -> None
+  viewBottom() -> None
+  viewDefaultOrientation() -> None
+  viewDimetric() -> None
+  viewFront() -> None
+  viewIsometric() -> None
+  viewLeft() -> None
+  viewPosition() -> Placement | None
+  viewRear() -> None
+  viewRight() -> None
+  viewRotateLeft() -> None
+  viewRotateRight() -> None
+  viewTop() -> None
+  viewTrimetric() -> None
+  zoomIn() -> None
+  zoomOut() -> None
+
+View3DInventorViewerPy
+  # Python binding class for the 3D viewer class
+  getFocalDistance() -> float
+  getPickRadius() -> float
+  getPoint() -> Vector
+  getPointOnFocalPlane() -> Vector
+  getSceneGraph() -> SoSeparator
+  getSoEventManager() -> SoEventManager
+  getSoRenderManager() -> SoRenderManager
+  grabFramebuffer()
+  isEnabledNaviCube() -> bool
+  isRedirectedToSceneGraph() -> bool
+  resetEditingRoot() -> None
+  seekToPoint() -> None
+  setBackgroundColor() -> None
+  setEnabledNaviCube() -> None
+  setFocalDistance() -> None
+  setGradientBackground() -> None
+  setGradientBackgroundColor() -> None
+  setNaviCubeCorner() -> None
+  setPickRadius() -> None
+  setRedirectToSceneGraph() -> None
+  setSceneGraph() -> None
+  setupEditingRoot() -> None
+
+ViewProvider : ExtensionContainer
+  # This class can be imported.
+    This is the ViewProvider base class
+  Annotation: SoSeparator
+  CanRemoveChildrenFromRoot: bool
+  DefaultMode: int
+  DropPrefix: str
+  IV: str
+  Icon: QIcon
+  LinkVisibility: bool
+  RootNode: SoSeparator
+  SwitchNode: SoSwitch
+  addDisplayMode()
+  addProperty() -> ViewProvider
+  canDragAndDropObject() -> bool
+  canDragObject() -> bool
+  canDropObject(obj: , owner: , subname: str, elem: ) -> bool
+  claimChildren() -> list[DocumentObjectPy | None]
+  doubleClicked() -> bool
+  dragObject()
+  dropObject(obj: DocumentObject, owner: , subname: str, elem: ) -> str
+  getBoundingBox() -> BoundBox
+  getDetailPath() -> SoDetail
+  getElementColors() -> dict[str, tuple[float, float, float, float]]
+  getElementPicked() -> str
+  hide()
+  isVisible() -> bool
+  listDisplayModes() -> list[str]
+  partialRender() -> int
+  removeProperty() -> bool
+  replaceObject() -> int
+  setElementColors()
+  setTransformation()
+  show()
+  signalChangeIcon()
+  supportedProperties() -> list[str]
+  toString() -> str
+
+ViewProviderDocumentObject : ViewProvider
+  # This class can be imported.
+    This is the ViewProvider base class
+  DisplayMode: int
+  Document: Document
+  ForceUpdate: bool
+  Object: DocumentObjectPy
+  OnTopWhenSelected: int
+  Proxy: ViewProviderPython | Any
+  SelectionStyle: int
+  ShowInTree: bool
+  Visibility: bool
+  update()
+
+ViewProviderExtension : Extension
+  # Base class for all view provider extensions
+  ignoreOverlayIcon() -> bool
+  setIgnoreOverlayIcon()
+
+ViewProviderFemMesh : ViewProviderDocumentObject
+  # ViewProviderFemMesh class
+  BackfaceCulling: bool
+  ElementColor: dict
+  HighlightedNodes: list[int]
+  LineWidth: float
+  MaxFacesShowInner: int
+  NodeColor: dict
+  NodeDisplacement: dict
+  PointColor: tuple[float, float, float, float]
+  PointSize: float
+  ShowInner: bool
+  VisibleElementFaces: list
+  applyDisplacement()
+  resetHighlightedNodes()
+  resetNodeColor()
+  resetNodeDisplacement()
+  setNodeColorByScalars()
+  setNodeDisplacementByVectors()
+
+ViewProviderFemPostPipeline : ViewProviderDocumentObject
+  # ViewProviderFemPostPipeline class
+  transformField()
+  updateColorBars()
+
+ViewProviderLink : ViewProviderDocumentObject
+  # This class can be imported.
+    This is the ViewProviderLink class
+  ChildViewProvider: object
+  DraggingPlacement: Placement
+  DrawStyle: int
+  LineWidth: float
+  LinkView: object
+  MaterialList: list[tuple[Material, Ellipsis]]
+  OverrideColorList: list[tuple[float, float, float, float]]
+  OverrideMaterial: bool
+  OverrideMaterialList: tuple[bool, Ellipsis]
+  PointSize: float
+  Selectable: bool
+  ShapeMaterial: Material
+  UseCenterballDragger: bool
+
+Workbench
+
+WorkbenchC : BaseClass
+  # This is the base class for workbenches
+  Icon: str
+  MenuText: str
+  ToolTip: str
+  Activated()
+  ContextMenu(recipient: )
+  Deactivated()
+  GetClassName()
+  Initialize()
+  activate()
+  getToolbarItems() -> dict[Any, list[str]]
+  listCommandbars() -> list[str]
+  listMenus() -> list[str]
+  listToolbars() -> list[str]
+  name() -> str
+  @static reloadActive()

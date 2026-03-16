@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "freecad-lap"
+version = "0.1.0"
+description = "Compressed LLM-optimized API reference for FreeCAD"
+requires-python = ">=3.10"
+dependencies = [
+    "tiktoken>=0.7",
+    "pyyaml>=6.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["freecad_lap*"]
+
+[project.scripts]
+freecad-lap = "freecad_lap.__main__:main"

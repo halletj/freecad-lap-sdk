@@ -1,0 +1,341 @@
+# freecad-graph.lap
+
+[graph]
+FreeCAD (App)
+  .ActiveDocument -> Document
+  .newDocument(name: str) -> Document
+  .openDocument(path: str) -> Document
+  .Console -> Console
+  .Vector(x, y, z) -> Vector
+  .Placement(pos, rot) -> Placement
+  .Rotation(axis, angle) -> Rotation
+
+Document
+  .Objects -> list[DocumentObject]
+  .addObject(type: str, name: str) -> DocumentObject
+  .removeObject(name: str) -> None
+  .recompute() -> None
+  .getObject(name: str) -> DocumentObject
+  .save() -> None
+  .saveAs(path: str) -> None
+
+App::Part (spatial container)
+  .addObject(obj) -> None
+  .Group -> list[DocumentObject]
+  .Origin -> Origin
+
+PartDesign::Body (single solid)
+  .newObject(type: str, name: str) -> DocumentObject
+  .Tip -> Feature
+  .BaseFeature -> Feature
+  .Origin -> Origin
+  .Group -> list[DocumentObject]
+
+Sketcher::SketchObject
+  .addGeometry(geo: Part.Geometry, construction: bool) -> int
+  .addConstraint(constraint: Sketcher.Constraint) -> int
+  .Support -> PropertyLinkSub  # the plane
+  .MapMode -> str
+
+Part.Shape (TopoShape)
+  .Faces -> list[Face]
+  .Edges -> list[Edge]
+  .Vertexes -> list[Vertex]
+  .Wires -> list[Wire]
+  .Shells -> list[Shell]
+  .Solids -> list[Solid]
+
+# freecad-gotchas.lap
+
+[gotchas]
+- ALWAYS call doc.recompute() after modifying objects -- nothing updates without it
+- Units are millimeters internally, not centimeters (unlike Fusion 360)
+- Create objects via doc.addObject('TypeString', 'Name') -- type string must be exact
+- Features must be added to a Body via body.newObject(), not doc.addObject()
+- Sketch geometry uses Part module types: Part.LineSegment, Part.Circle, etc.
+- Constraints reference geometry by 0-based index, which can break if geometry order changes
+- FreeCADGui (Gui) module is unavailable in headless mode (FreeCADCmd)
+- Use 'import FreeCAD as App' -- the App alias isn't always available outside FreeCAD console
+- Sketch must have Support (plane) and MapMode set before adding geometry
+- Topological naming: avoid referencing faces/edges by index in parametric models
+- Store object references in variables before switching workbenches -- selection clears
+- Point3D coordinates are in mm: App.Vector(10, 0, 0) means 10mm
+
+[meta]
+api: FreeCAD
+lang: python
+modules: FreeCAD, FreeCADGui, Part, PartDesign, Sketcher, Mesh, TechDraw, Path, Fem
+import: import FreeCAD as App; import Part; import PartDesign; import Sketcher
+
+# freecad-core.lap
+
+[classes]
+Document : PropertyContainer
+  # This class can be imported.
+    This is a Document class
+  ActiveObject: DocumentObjectPy | None
+  Comment: str
+  Company: str
+  CreatedBy: str
+  CreationDate: str
+  DependencyGraph: str
+  FileName: str
+  HasPendingTransaction: bool
+  Id: str
+  Importing: bool
+  InList: list[Any]
+  Label: str
+  LastModifiedBy: str
+  LastModifiedDate: str
+  License: str
+  LicenseURL: str
+  Material: dict[str, str]
+  Meta: dict[str, str]
+  Name: str
+  Objects: list[Any]
+  OldLabel: str
+  OutList: list[Any]
+  Partial: bool
+  RecomputesFrozen: bool
+  Recomputing: bool
+  RedoCount: int
+  RedoNames: list[str]
+  Restoring: bool
+  RootObjects: list[Any]
+  ShowHidden: bool
+  Temporary: bool
+  Tip: DocumentObject | None
+  TipName: str
+  TopologicalSortedObjects: list[Any]
+  Transacting: bool
+  TransientDir: str
+  Uid: str
+  UndoCount: int
+  UndoMode: int
+  UndoNames: list[str]
+  UndoRedoMemSize: int
+  UnitSystem: int
+  abortTransaction()
+  addObject(type: str, name: str, objProxy: , viewProxy: , attach: bool, viewType: str) -> DocumentObjectPy
+  addProperty(type: str, name: str, group: str, doc: str, attr: int, read_only: bool, hidden: bool, enum_vals: ) -> Document
+  clearDocument()
+  clearUndos()
+  commitTransaction()
+  copyObject() -> Any | tuple[Any, Ellipsis]
+  exportGraphviz() -> str
+  findObjects(Type: str, Name: str, Label: str) -> list[DocumentObjectPy]
+  getDependentDocuments() -> list[Any]
+  getFileName() -> str
+  getLinksTo() -> tuple[Any, Ellipsis]
+  getObject() -> DocumentObjectPy
+  getObjectsByLabel() -> list[Any]
+  getProgramVersion() -> str
+  getTempFileName() -> str
+  importLinks() -> tuple[Any, Ellipsis]
+  isClosable() -> bool
+  isSaved() -> bool
+  isTouched() -> bool
+  load()
+  mergeProject()
+  moveObject()
+  mustExecute() -> bool
+  openTransaction()
+  purgeTouched()
+  recompute() -> int
+  redo()
+  removeObject()
+  removeProperty() -> bool
+  restore()
+  save()
+  saveAs()
+  saveCopy()
+  setClosable()
+  supportedTypes() -> list[str]
+  undo()
+
+Document : Persistence
+  # This class can be imported.
+    This is a Document class
+  ActiveObject: ViewProvider | None
+  ActiveView: MDIViewPy | View3DInventorPy | None
+  Document: Document
+  EditMode: int
+  EditingTransform: Matrix
+  InEditInfo: tuple[Any, str, str, int] | None
+  Modified: bool
+  Transacting: bool
+  activeObject() -> ViewProvider
+  activeView() -> MDIView
+  addAnnotation()
+  getInEdit() -> ViewProvider
+  getObject() -> ViewProvider
+  hide()
+  mdiViewsOfType() -> list[Any]
+  mergeProject()
+  resetEdit()
+  save() -> bool
+  saveAs() -> bool
+  scrollToTreeItem()
+  sendMsgToViews()
+  setEdit() -> bool
+  setPos()
+  show()
+  toggleInSceneGraph()
+  toggleTreeItem()
+  update()
+
+DocumentObject : ExtensionContainer
+  # This class can be imported.
+    This is the father of all classes handled by the document
+  Document: Document
+  ExpressionEngine: list[tuple[str, str]]
+  FullName: str
+  ID: int
+  InList: list[DocumentObject]
+  InListRecursive: list[DocumentObject]
+  Label: str
+  Label2: str
+  MustExecute: bool
+  Name: str
+  NoTouch: bool
+  OldLabel: str
+  OutList: list[DocumentObject]
+  OutListRecursive: list[DocumentObject]
+  Parents: list[tuple[DocumentObject, str]]
+  Proxy: ProxyPython | Any
+  Removing: bool
+  State: list[Literal[Touched, Invalid, Recompute, Recompute2, Restore, Expanded, Partial, Importing, Up-to-date]]
+  ViewObject: ViewProviderDocumentObject | None
+  Visibility: bool
+  addProperty(type: str, name: str, group: str, doc: str, attr: int, read_only: bool, hidden: bool, enum_vals: list) -> DocumentObject
+  adjustRelativeLinks() -> bool
+  clearExpression()
+  enforceRecompute()
+  @static evalExpression()
+  getLinkedObject(recursive: bool, matrix: , transform: bool, depth: int) -> tuple[DocumentObject, Matrix] | DocumentObject
+  getParent() -> Any | None
+  getParentGeoFeatureGroup() -> Any | None
+  getParentGroup() -> DocumentObjectGroup | None
+  getPathsByOutList() -> list[list[Any]]
+  getStatusString() -> str
+  getSubObject(subname: , retType: int, matrix: Matrix, transform: bool, depth: int) -> Placement | Matrix | tuple[Any, Matrix, Any] | Any | tuple[Any, Ellipsis]
+  getSubObjectList() -> list[Any]
+  getSubObjects() -> tuple[str, Ellipsis]
+  hasChildElement() -> bool
+  isElementVisible() -> int
+  isValid() -> bool
+  purgeTouched()
+  recompute() -> bool
+  removeProperty() -> bool
+  resolve() -> tuple[Any, Any, str, str]
+  resolveSubElement() -> tuple[Any, str, str]
+  setElementVisible() -> int
+  setExpression()
+  supportedProperties() -> list[str]
+  touch()
+
+DocumentObjectExtension : Extension
+  # This class can be imported.
+    Base class for all document object extensions
+
+DocumentObjectGroup : DocumentObject
+  # This class can be imported.
+    This class handles document objects in group
+
+ExpressionBinding
+  # This class can be imported.
+    Python interface class for ExpressionBinding
+
+ExpressionError : FreeCADError
+
+ExtensionContainer : PropertyContainer
+  # This class can be imported.
+    Base class for all objects which can be extended
+  addExtension()
+  hasExtension() -> bool
+
+GeoFeature : DocumentObject
+  Placement: Placement
+  getGlobalPlacement() -> Placement
+  getPaths()
+  getPropertyNameOfGeometry() -> str | None
+  getPropertyOfGeometry() -> MeshObject | Shape | PointKernel | None
+
+ModelProperty : BaseClass
+  # This class can be imported.
+    Material property descriptions.
+  Description: str
+  Name: str
+  Type: str
+  URL: str
+  Units: str
+
+ParameterGrp
+  # Python interface class to set parameters
+  Attach() -> None
+  AttachManager() -> None
+  Clear() -> None
+  Detach() -> None
+  Export() -> None
+  GetBool() -> bool
+  GetBools() -> list[str]
+  GetContents() -> list[tuple[str, str, str] | tuple[str, str, int] | tuple[str, str, float] | tuple[str, str, bool]] | None
+  GetFloat() -> float
+  GetFloats() -> list[str]
+  GetGroup() -> ParameterGrp
+  GetGroupName() -> str
+  GetGroups() -> list[str]
+  GetInt() -> int
+  GetInts() -> list[str]
+  GetString() -> str
+  GetStrings() -> list[str]
+  GetUnsigned() -> int
+  GetUnsigneds() -> list[str]
+  HasGroup() -> bool
+  Import() -> None
+  Insert() -> None
+  IsEmpty() -> bool
+  Manager() -> ParameterGrp | None
+  Notify() -> None
+  NotifyAll() -> None
+  Parent() -> ParameterGrp | None
+  RemBool() -> None
+  RemFloat() -> None
+  RemGroup() -> None
+  RemInt() -> None
+  RemString() -> None
+  RemUnsigned() -> None
+  SetBool() -> None
+  SetFloat() -> None
+  SetInt() -> None
+  SetString() -> None
+  SetUnsigned() -> None
+
+PropertyColumnWidths : Persistence
+  # Internal spreadsheet object
+
+PropertyContainer : Persistence
+  # This class can be imported.
+    App.PropertyContainer class.
+  PropertiesList: list[str]
+  dumpPropertyContent(Property: str, Compression: int) -> bytes
+  getDocumentationOfProperty() -> str
+  getEditorMode() -> list[str]
+  getEnumerationsOfProperty() -> list[str]
+  getGroupOfProperty() -> str
+  getPropertyByName() -> Any
+  getPropertyStatus() -> list[str | int]
+  getPropertyTouchList() -> tuple[int, Ellipsis]
+  getTypeIdOfProperty() -> str
+  getTypeOfProperty() -> list[str]
+  restorePropertyContent()
+  setDocumentationOfProperty()
+  setEditorMode()
+  setGroupOfProperty()
+  setPropertyStatus()
+
+PropertyRowHeights : Persistence
+  # Internal spreadsheet object
+
+PropertySheet : Persistence
+  # Internal spreadsheet object

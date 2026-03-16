@@ -1,0 +1,128 @@
+# freecad-fem.lap
+
+[classes]
+FemMesh : ComplexGeoData
+  # This class can be imported.
+    FemMesh class
+  EdgeCount: int
+  Edges: tuple[int, Ellipsis]
+  EdgesOnly: tuple[int, Ellipsis]
+  FaceCount: int
+  Faces: tuple[int, Ellipsis]
+  FacesOnly: tuple[int, Ellipsis]
+  GroupCount: int
+  Groups: tuple[int, Ellipsis]
+  HexaCount: int
+  NodeCount: int
+  Nodes: dict[int, Vector]
+  PolygonCount: int
+  PolyhedronCount: int
+  PrismCount: int
+  PyramidCount: int
+  QuadrangleCount: int
+  SubMeshCount: int
+  TetraCount: int
+  TriangleCount: int
+  Volume: Quantity
+  VolumeCount: int
+  Volumes: tuple[int, Ellipsis]
+  addEdge() -> int
+  addFace() -> int
+  addGroup() -> int
+  addGroupElements()
+  addHypothesis()
+  addNode() -> int
+  addQuad() -> int
+  addVolume() -> int
+  compute()
+  copy() -> FemMesh
+  getEdgesByEdge() -> list[int]
+  getElementNodes() -> tuple[int, Ellipsis]
+  getElementType() -> str
+  getFacesByFace() -> list[int]
+  getGroupElementType() -> str
+  getGroupElements() -> tuple[int, Ellipsis]
+  getGroupName() -> str
+  getIdByElementType() -> tuple[int, Ellipsis]
+  getNodeById() -> Vector
+  getNodeElements() -> tuple[int, Ellipsis]
+  getNodesByEdge() -> list[int]
+  getNodesByFace() -> list[int]
+  getNodesBySolid() -> list[int]
+  getNodesByVertex() -> list[int]
+  getVolumesByFace() -> list[tuple[int, int]]
+  getccxVolumesByFace() -> list[tuple[int, int]]
+  read()
+  removeGroup() -> bool
+  setShape()
+  setStandardHypotheses()
+  setTransform()
+  write()
+  writeABAQUS()
+
+FemMeshObject
+  # 1.  REDIRECT [FEM_Mesh](FEM_Mesh.md)
+
+FemPostPipeline : GeoFeature
+  # The FemPostPipeline class.
+  Filter: list[DocumentObject | None]
+  Functions: DocumentObject | None
+  Mode: int
+  getLastPostObject() -> DocumentObjectPy
+  holdsPostObject() -> bool
+  load()
+  read()
+  recomputeChildren()
+  scale()
+
+Material : PyObjectBase
+  # This class can be imported.
+    This is the Material class
+  AmbientColor: tuple[float, float, float, float]
+  DiffuseColor: tuple[float, float, float, float]
+  EmissiveColor: tuple[float, float, float, float]
+  Shininess: float
+  SpecularColor: tuple[float, float, float, float]
+  Transparency: float
+  set()
+
+Material : BaseClass
+  # This class can be imported.
+    Material descriptions.
+  AppearanceModels: list
+  AppearanceProperties: dict
+  Author: str
+  AuthorAndLicense: str
+  Description: str
+  Directory: str
+  LibraryIcon: str
+  LibraryName: str
+  LibraryRoot: str
+  License: str
+  Name: str
+  Parent: str
+  PhysicalModels: list
+  PhysicalProperties: dict
+  Properties: dict
+  Reference: str
+  Tags: list
+  URL: str
+  UUID: str
+  getAppearanceValue()
+  getPhysicalValue()
+  hasAppearanceModel()
+  hasAppearanceProperty()
+  hasPhysicalModel()
+  hasPhysicalProperty()
+  isAppearanceModelComplete()
+  isPhysicalModelComplete()
+
+MaterialManager : BaseClass
+  # This class can be imported.
+    Material descriptions.
+  MaterialLibraries: list
+  Materials: dict
+  getMaterial()
+  getMaterialByPath()
+  materialsWithModel()
+  materialsWithModelComplete()

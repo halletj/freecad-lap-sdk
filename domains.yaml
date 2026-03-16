@@ -1,0 +1,173 @@
+# Maps FreeCAD API classes to domain .lap files via glob patterns.
+# Classes not matching any pattern go to freecad-misc.lap.
+# Order matters: first match wins.
+
+core:
+  - Application
+  - Document
+  - Document*
+  - DocumentObject
+  - DocumentObject*
+  - GeoFeature
+  - PropertyContainer
+  - ExtensionContainer
+  - TransactionalObject
+  - "*Property*"
+  - Vector
+  - Vector*
+  - Matrix
+  - Matrix*
+  - Placement
+  - Placement*
+  - Rotation
+  - Rotation*
+  - Axis
+  - BoundBox
+  - BoundBox*
+  - Console
+  - Units
+  - Unit*
+  - Quantity
+  - Base
+  - Persistence
+  - Origin
+  - "Parameter*"
+  - Expression*
+  - Color
+  - Guid*
+
+part:
+  - Shape
+  - "Shape*"
+  - TopoShape
+  - "TopoShape*"
+  - Wire
+  - Wire*
+  - Face
+  - Face*
+  - Edge
+  - Edge*
+  - Vertex
+  - Vertex*
+  - Shell
+  - Shell*
+  - Solid
+  - Solid*
+  - Compound
+  - Compound*
+  - "BRep*"
+  - "Geom*"
+  - "BSpline*"
+  - "Bezier*"
+  - "Line*"
+  - "Circle*"
+  - "Arc*"
+  - "Ellipse*"
+  - "Parabola*"
+  - "Hyperbola*"
+  - "Cylinder*"
+  - "Sphere*"
+  - "Cone*"
+  - "Torus*"
+  - "Plane*"
+  - "Surface*"
+  - Box
+  - Prism
+  - Wedge
+  - "Part*"
+  - "Feature"
+  - "Primitive*"
+  - "*Boolean*"
+
+partdesign:
+  - Body
+  - "Pad*"
+  - "Pocket*"
+  - "Revolution*"
+  - "Groove*"
+  - "Additive*"
+  - "Subtractive*"
+  - "Fillet*"
+  - "Chamfer*"
+  - "Draft*"
+  - "Thickness*"
+  - "Pipe*"
+  - "Loft*"
+  - "Mirrored*"
+  - "LinearPattern*"
+  - "PolarPattern*"
+  - "MultiTransform*"
+  - "Hole*"
+  - "Thread*"
+
+sketcher:
+  - "Sketch*"
+  - "*Constraint"
+  - "*Constraints"
+  - "Constraint*"
+  - "Profile*"
+  - "Part2DObject*"
+
+draft:
+  - "Draft*"
+  - "Wire"
+  - "BSpline"
+  - "Text"
+  - "Dimension"
+  - "Annotation"
+  - "Clone"
+  - "Array"
+  - "PathArray"
+  - "PointArray"
+
+techdraw:
+  - "DrawView*"
+  - "DrawPage*"
+  - "DrawTemplate*"
+  - "TechDraw*"
+  - "Balloon*"
+  - "Hatch*"
+  - "Leader*"
+  - "Cosmetic*"
+  - "CenterLine*"
+
+path:
+  - "Path*"
+  - "Tool*"
+  - "Toolbit*"
+  - "Operation*"
+  - "Setup*"
+  - "Job*"
+  - "Post*"
+
+mesh:
+  - "Mesh*"
+  - "MeshObject*"
+  - "MeshPoint*"
+  - "Facet*"
+  - "Segment*"
+
+fem:
+  - "Fem*"
+  - "FEM*"
+  - "Analysis*"
+  - "Solver*"
+  - "Material*"
+  - "Result*"
+
+assembly:
+  - "Assembly*"
+  - "JointGroup*"
+
+gui:
+  - "ViewProvider*"
+  - "Selection*"
+  - "Command*"
+  - "Workbench*"
+  - "ActiveDocument"
+  - "Control"
+  - "Snapper*"
+  - "MDIView*"
+  - "View3D*"
+  - "CoinNode*"
+  - "PySide*"

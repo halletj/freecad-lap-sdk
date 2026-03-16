@@ -1,0 +1,1699 @@
+# freecad-misc.lap
+
+[types]
+ReturnGetAuthorDict: name | email
+ReturnGetFormatDict: style | weight | color | visible
+ReturnGetGenericMetadataDict: contents | attributes
+ReturnGetLicenseDict: name | file
+ReturnGetMaintainerDict: name | email
+ReturnGetModeInfoDict: ReferenceCombinations | ModeIndex | UserFriendlyName | BriefDocu
+ReturnGetObjectInfoDict: x | y | z | ParentObject | SubName | Document | Object | Component
+ReturnGetObjectsInfoDict: x | y | z | ParentObject | SubName | Document | Object | Component
+ReturnGetPrincipalPropertiesDict: SymmetryAxis | SymmetryPoint | Moments | FirstAxisOfInertia | SecondAxisOfInertia | ThirdAxisOfInertia | RadiusOfGyration
+ReturnGetRefTypeInfoDict: TypeIndex | Rank | UserFriendlyName
+ReturnGetUrlsDict: location | type | branch
+ReturnSuggestModesDict: allApplicableModes | bestFitMode | error | message | nextRefTypeHint | reachableModes | references_Types
+
+[classes]
+1.0_Development_Cycle
+  # {{Page_in_progress}}
+
+3DPocket
+  # 1.  REDIRECT [CAM_Pocket_3D](CAM_Pocket_3D.md)
+
+3DSurface
+  # 1.  REDIRECT [CAM_Surface](CAM_Surface.md)
+
+API
+
+AbstractSplitViewPy
+  # Python binding class for the Inventor viewer class
+  cast_to_base()
+  close() -> None
+  fitAll() -> None
+  getViewer() -> View3DInventorViewerPy
+  viewAxometric() -> None
+  viewBottom() -> None
+  viewFront() -> None
+  viewIsometric() -> None
+  viewLeft() -> None
+  viewRear() -> None
+  viewRight() -> None
+  viewTop() -> None
+
+Adaptive
+  # 1.  REDIRECT [CAM_Adaptive](CAM_Adaptive.md)
+
+AddTriangle
+  # 1.  REDIRECT [Mesh_AddFacet](Mesh_AddFacet.md)
+
+Angle
+  # 1.  REDIRECT [Draft_Snap_Angle](Draft_Snap_Angle.md)
+
+Apply
+  # 1.  REDIRECT [Draft_ApplyStyle](Draft_ApplyStyle.md)
+
+Area : BaseClass
+  Sections: list[Shape]
+  Shapes: list[tuple[Shape, int]]
+  Workplane: Shape
+  abort()
+  add(shape: ) -> Area
+  getClearedArea() -> Area
+  getDefaultParams()
+  getParams() -> dict
+  getParamsDesc()
+  getRestArea() -> Area | None
+  getShape(index: int, rebuild: bool) -> Shape
+  makeOffset(index: int) -> Shape
+  makePocket(index: int) -> Shape
+  makeSections(heights: , plane: Shape) -> list[Area]
+  setDefaultParams()
+  setParams() -> Area
+  setPlane() -> Area
+  toTopoShape() -> Shape
+
+Area_Workplane
+  # 1.  REDIRECT [CAM_Area_Workplane](CAM_Area_Workplane.md)
+
+Array2D : BaseClass
+  # 2D Array of material properties.
+  Array: list
+  Columns: int
+  Rows: int
+  getRow()
+  getValue()
+
+Array3D : BaseClass
+  # 3D Array of material properties.
+  Array: list
+  Columns: int
+  Depth: int
+  getDepthValue()
+  getRows()
+  getValue()
+
+ArrayTools
+  # 1.  REDIRECT [Draft_Workbench#Draft_ArrayTools](Draft_Workbench#Draft_ArrayTools.md)
+
+AttachEngine : BaseClass
+  AttacherType: str
+  AttachmentOffset: Placement
+  CompleteModeList: list[str]
+  CompleteRefTypeList: list[str]
+  ImplementedModes: list[str]
+  Mode: str
+  Parameter: float
+  References: object
+  Reverse: bool
+  calculateAttachedPlacement() -> Placement | None
+  copy() -> AttachEngine
+  downgradeRefType() -> str
+  getModeInfo() -> ReturnGetModeInfoDict
+  getRefTypeInfo() -> ReturnGetRefTypeInfoDict
+  getRefTypeOfShape() -> str
+  isFittingRefType() -> bool
+  readParametersFromFeature() -> None
+  suggestModes() -> ReturnSuggestModesDict
+  writeParametersToFeature() -> None
+
+AttachExtension : DocumentObjectExtension
+  # This object represents an attachable object with OCC shape.
+  Attacher: AttachEngine | None
+  AttacherType: str
+  AttachmentOffset: Placement
+  MapMode: int
+  MapPathParameter: float
+  MapReversed: bool
+  Support: list[tuple[DocumentObject, list[str]]]
+  changeAttacherType() -> bool
+  positionBySupport() -> bool
+
+Attachment
+  # 1.  REDIRECT [Part_EditAttachment](Part_EditAttachment.md)
+
+AxisOrigin : BaseClass
+  AxisLength: float
+  Labels: dict[str, str]
+  LineWidth: float
+  Node: SoGroup
+  Plane: tuple[float, float]
+  PointSize: float
+  Scale: float
+  getDetailPath() -> SoDetail
+  getElementPicked() -> str
+
+BadFormatError : FreeCADError
+
+BadGraphError : FreeCADError
+
+Bearingholder_Tutorial_I
+
+Bearingholder_Tutorial_II
+
+BimServer
+  # 1.  REDIRECT [WebTools_BimServer](WebTools_BimServer.md)
+
+BlendCurve : PyObjectBase
+  compute() -> BezierCurve
+  setSize()
+
+BlendPoint : PyObjectBase
+  Vectors: list[Vector]
+  getSize() -> float
+  setSize()
+  setvectors()
+
+BodyBase : Feature
+  # This class can be imported.
+    Base class of all Body objects
+  BaseFeature: DocumentObject | None
+  Tip: DocumentObject | None
+
+BomGroup : DocumentObjectGroup
+  # This class is a group subclass for boms.
+
+BomObject : Sheet
+  # This class is the BOM object of assemblies, it derives from Spreadsheet::Sheet.
+  columnsNames: list[str]
+  detailParts: bool
+  detailSubAssemblies: bool
+  onlyParts: bool
+
+BoundedCurve : Curve
+  # The abstract class BoundedCurve is the root class of all bounded curve objects.
+  EndPoint: Vector
+  StartPoint: Vector
+
+BrowserView
+  # Python interface class to BrowserView
+  cast_to_base()
+  load() -> None
+  setHtml() -> None
+  stop() -> None
+  url() -> str
+
+CADKernelError : FreeCADError
+
+Center
+  # 1.  REDIRECT [Draft_Snap_Center](Draft_Snap_Center.md)
+
+Clip
+  # 1.  REDIRECT [TechDraw_ClipGroup](TechDraw_ClipGroup.md)
+
+Close
+  # 1.  REDIRECT [Std_CloseActiveWindow](Std_CloseActiveWindow.md)
+
+CloseAll
+  # 1.  REDIRECT [Std_CloseAllWindows](Std_CloseAllWindows.md)
+
+CloseLine
+  # 1.  REDIRECT [Draft_Wire](Draft_Wire.md)
+
+Comment
+  # 1.  REDIRECT [CAM_Comment](CAM_Comment.md)
+
+Community_Portal
+
+CompAxis
+  # 1.  REDIRECT [BIM_Workbench](BIM_Workbench.md)
+
+CompBSplineShowHideGeometryInformation
+
+CompCompoundTools
+  # 1.  REDIRECT [Part_Workbench#Part_CompCompoundTools](Part_Workbench#Part_CompCompoundTools.md)
+
+CompConstrainRadDia
+
+CompCreateArc
+
+CompCreateBSpline
+
+CompCreateCircle
+
+CompCreateConic
+
+CompCreateFillets
+
+CompCreateRectangles
+
+CompCreateRegularPolygon
+
+CompCurveEdition
+
+CompDatums
+
+CompDimensionTools
+
+CompExternal
+
+CompHorVer
+  # 1.  REDIRECT [Sketcher_Workbench#Sketcher_CompHorVer](Sketcher_Workbench#Sketcher_CompHorVer.md)
+
+CompJoinFeatures
+  # 1.  REDIRECT [Part_Workbench#Part_CompJoinFeatures](Part_Workbench#Part_CompJoinFeatures.md)
+
+CompOffsetTools
+  # 1.  REDIRECT [Part_Workbench#Part_CompOffsetTools](Part_Workbench#Part_CompOffsetTools.md)
+
+CompPanel
+  # 1.  REDIRECT [BIM_Workbench](BIM_Workbench.md)
+
+CompPipe
+  # 1.  REDIRECT [BIM_Workbench](BIM_Workbench.md)
+
+CompPrimitiveAdditive
+
+CompPrimitiveSubtractive
+
+CompRebarStraight
+  # 1.  REDIRECT [BIM_Workbench](BIM_Workbench.md)
+
+CompSetMaterial
+  # 1.  REDIRECT [BIM_Workbench](BIM_Workbench.md)
+
+CompSketches
+
+CompSlot
+  # 1.  REDIRECT [Sketcher_Workbench#Sketcher_CompSlot](Sketcher_Workbench#Sketcher_CompSlot.md)
+
+CompSolid : Shape
+  add()
+
+CompSplittingTools
+  # 1.  REDIRECT [Part_Workbench#Part_CompSplittingTools](Part_Workbench#Part_CompSplittingTools.md)
+
+ComplexGeoData : Persistence
+  # Father of all complex geometric data types
+  BoundBox: BoundBox
+  CenterOfGravity: Vector
+  Placement: Placement
+  Tag: int
+  applyRotation()
+  applyTranslation()
+  countSubElements() -> int
+  getElementTypes() -> list[str]
+  getFaces() -> tuple[list[Vector], list[tuple[int, int, int]]]
+  getFacesFromSubElement() -> tuple[list[Vector], list[tuple[int, int, int]]]
+  getLines() -> tuple[list[Vector], list[tuple[int, int]]]
+  getLinesFromSubElement() -> tuple[list[Vector], list[tuple[int, int]]]
+  getPoints() -> tuple[list[Vector], list[Vector]]
+  transformGeometry()
+
+Configuration_Management_Project
+
+Conic : Curve
+  # This class can be imported.
+    Describes an abstract conic in 3d space
+  AngleXU: float
+  Axis: Vector
+  Center: Vector
+  Eccentricity: float
+  Location: Vector
+  XAxis: Vector
+  YAxis: Vector
+
+Contour
+  # 1.  REDIRECT [CAM_Profile](CAM_Profile.md)
+
+ConvertToNURB
+  # 1.  REDIRECT [Sketcher_BSplineConvertToNURBS](Sketcher_BSplineConvertToNURBS.md)
+
+ConvertToSolid
+  # 1.  REDIRECT [Part_MakeSolid](Part_MakeSolid.md)
+
+Copy
+  # 1.  REDIRECT [CAM_Copy](CAM_Copy.md)
+
+CopyClipboard
+
+CreateJointGearBelt
+
+CreateMeshSegment
+  # 1.  REDIRECT [Mesh_Segmentation](Mesh_Segmentation.md)
+
+CreatePrimitives
+  # 1.  REDIRECT [Part_Primitives](Part_Primitives.md)
+
+CreateSimpleCopy
+  # 1.  REDIRECT [Part SimpleCopy](Part_SimpleCopy.md)
+
+Cube
+  # 1.  REDIRECT [Mesh_BuildRegularSolid](Mesh_BuildRegularSolid.md)
+
+CurvaturePlot
+  # 1.  REDIRECT [Mesh_VertexCurvature](Mesh_VertexCurvature.md)
+
+Curve : Geometry
+  # The abstract class GeometryCurve is the root class of all curve objects.
+  Continuity: str
+  FirstParameter: float
+  LastParameter: float
+  Rotation: object | Rotation
+  approximateBSpline() -> BSplineCurve
+  centerOfCurvature() -> Vector
+  continuityWith() -> str
+  curvature() -> float
+  discretize(Angular: float, Curvature: float, First: float, Last: float, Minimum: int) -> list[Vector]
+  getD0() -> Vector
+  getD1() -> tuple[Vector, Vector]
+  getD2() -> tuple[Vector, Vector, Vector]
+  getD3() -> tuple[Vector, Vector, Vector, Vector]
+  getDN() -> Vector
+  intersect() -> int
+  intersect2d() -> list[tuple[float, float]]
+  intersectCC() -> list | list[Point]
+  intersectCS() -> tuple[list[Point], list[Any]]
+  isClosed() -> bool
+  isPeriodic() -> bool
+  length() -> float
+  makeRuledSurface() -> RectangularTrimmedSurface | BSplineSurface
+  normal() -> Vector
+  parameter() -> float
+  parameterAtDistance() -> float
+  period() -> float
+  projectPoint(Point: Vector, Method: str) -> Vector | float | list[float] | list[Vector]
+  reverse()
+  reversedParameter() -> float
+  tangent() -> tuple[Vector]
+  toBSpline() -> BSplineCurve
+  toNurbs() -> BSplineCurve
+  toShape() -> Edge
+  trim()
+  value() -> Vector
+
+Custom
+  # 1.  REDIRECT [CAM_Custom](CAM_Custom.md)
+
+Cut
+  # 1.  REDIRECT [Sketcher_Workbench#Sketcher_Cut](Sketcher_Workbench#Sketcher_Cut.md)
+
+DAT
+
+Datums
+  # 1.  REDIRECT [Std_Base#Part_Datums](Std_Base#Part_Datums.md)
+
+DebugInto
+  # 1.  REDIRECT [Std_MacroStepInto](Std_MacroStepInto.md)
+
+DebugOver
+  # 1.  REDIRECT [Std_MacroStepOver](Std_MacroStepOver.md)
+
+DebugToggle
+  # 1.  REDIRECT [Std_ToggleBreakpoint](Std_ToggleBreakpoint.md)
+
+Deburr
+  # 1.  REDIRECT [CAM_Deburr](CAM_Deburr.md)
+
+Development_Roadmap
+  # 1.  REDIRECT [CAM Development Roadmap](CAM_Development_Roadmap.md)
+
+Dimension_Angle
+  # 1.  REDIRECT [TechDraw_AngleDimension](TechDraw_AngleDimension.md)
+
+Dimension_Angle3Pt
+  # 1.  REDIRECT [TechDraw_3PtAngleDimension](TechDraw_3PtAngleDimension.md)
+
+Dimension_Diameter
+  # 1.  REDIRECT [TechDraw_DiameterDimension](TechDraw_DiameterDimension.md)
+
+Dimension_Horizontal
+  # 1.  REDIRECT [TechDraw_HorizontalDimension](TechDraw_HorizontalDimension.md)
+
+Dimension_Horizontal_Extent
+  # 1.  REDIRECT [TechDraw_HorizontalExtentDimension](TechDraw_HorizontalExtentDimension.md)
+
+Dimension_Landmark
+  # 1.  REDIRECT [TechDraw_LandmarkDimension](TechDraw_LandmarkDimension.md)
+
+Dimension_Length
+  # 1.  REDIRECT [TechDraw_LengthDimension](TechDraw_LengthDimension.md)
+
+Dimension_Link
+  # 1.  REDIRECT [TechDraw_LinkDimension](TechDraw_LinkDimension.md)
+
+Dimension_Radius
+  # 1.  REDIRECT [TechDraw_RadiusDimension](TechDraw_RadiusDimension.md)
+
+Dimension_Vertical
+  # 1.  REDIRECT [TechDraw_VerticalDimension](TechDraw_VerticalDimension.md)
+
+Dimension_Vertical_Extent
+  # 1.  REDIRECT [TechDraw_VerticalExtentDimension](TechDraw_VerticalExtentDimension.md)
+
+Dimensions
+  # 1.  REDIRECT [Draft_Snap_Dimensions](Draft_Snap_Dimensions.md)
+
+Door
+  # 1.  REDIRECT [BIM_Door](BIM_Door.md)
+
+DrawGeomHatch : DocumentObject
+  # Feature for creating and manipulating Technical Drawing GeomHatch areas
+  FilePattern: str
+  NamePattern: str
+  PatIncluded: str
+  PatternOffset: Vector
+  PatternRotation: float
+  ScalePattern: float
+  Source: tuple[DocumentObject, list[str]] | None
+  translateLabel()
+
+DrawHatch : DocumentObject
+  # Feature for creating and manipulating Technical Drawing Hatch areas
+  HatchPattern: str
+  Source: tuple[DocumentObject, list[str]] | None
+  SvgIncluded: str
+  translateLabel()
+
+DrawLeaderLine : DrawView
+  # Feature for adding leaders to Technical Drawings
+  AutoHorizontal: bool
+  EndSymbol: int
+  LeaderParent: DocumentObject | None
+  Scalable: bool
+  StartSymbol: int
+  WayPoints: list[Vector]
+
+DrawParametricTemplate : DrawTemplate
+  # Feature for creating and manipulating Technical Drawing Templates
+  GeometryCount: int
+  Template: str
+  drawLine()
+
+DrawProjGroup : DrawViewCollection
+  # Feature for creating and manipulating Technical Drawing Projection Groups
+  Anchor: DocumentObject | None
+  AutoDistribute: bool
+  ProjectionType: int
+  Source: list[DocumentObject | None]
+  XSource: list[tuple[DocumentObject, list[str]]] | list[DocumentObject]
+  spacingX: Quantity
+  spacingY: Quantity
+  addProjection() -> DrawProjGroupItem
+  getItemByLabel() -> DrawProjGroupItem
+  getXYPosition() -> Vector
+  purgeProjections() -> int
+  removeProjection() -> int
+
+DrawProjGroupItem : DrawViewPart
+  # Feature for creating and manipulating component Views Technical Drawing Projection Groups
+  RotationVector: Vector
+  Type: int
+  autoPosition()
+
+DrawRichAnno : DrawView
+  # Feature for adding rich annotation blocks to Technical Drawings
+  AnnoParent: DocumentObject | None
+  AnnoText: str
+  MaxWidth: float
+  ShowFrame: bool
+
+DrawSVGTemplate : DrawTemplate
+  # Feature for creating and manipulating Technical Drawing SVG Templates
+  PageResult: str
+  Template: str
+  getEditFieldContent() -> str
+  setEditFieldContent()
+  translateLabel()
+
+DrawTile : DocumentObject
+  # Feature for adding tiles to leader lines
+  TileColumn: int
+  TileParent: DocumentObject | None
+  TileRow: int
+
+DrawTileWeld : DrawTile
+  # Feature for adding welding tiles to leader lines
+  CenterText: str
+  LeftText: str
+  RightText: str
+  SymbolFile: str
+  SymbolIncluded: str
+
+DrawWeldSymbol : DrawView
+  # Feature for adding welding tiles to leader lines
+  AllAround: bool
+  AlternatingWeld: bool
+  FieldWeld: bool
+  Leader: DocumentObject | None
+  TailText: str
+
+DressupAxisMap
+  # 1.  REDIRECT [CAM_DressupAxisMap](CAM_DressupAxisMap.md)
+
+DressupBoundary
+  # 1.  REDIRECT [CAM_DressupPathBoundary](CAM_DressupPathBoundary.md)
+
+DressupDogbone
+  # 1.  REDIRECT [CAM_DressupDogbone](CAM_DressupDogbone.md)
+
+DressupDragKnife
+  # 1.  REDIRECT [CAM_DressupDragKnife](CAM_DressupDragKnife.md)
+
+DressupLeadInOut
+  # 1.  REDIRECT [CAM_DressupLeadInOut](CAM_DressupLeadInOut.md)
+
+DressupPathBoundary
+  # 1.  REDIRECT [CAM_DressupPathBoundary](CAM_DressupPathBoundary.md)
+
+DressupRampEntry
+  # 1.  REDIRECT [CAM_DressupRampEntry](CAM_DressupRampEntry.md)
+
+DressupTag
+  # 1.  REDIRECT [CAM_DressupTag](CAM_DressupTag.md)
+
+DressupZCorrect
+  # 1.  REDIRECT [CAM_DressupZCorrect](CAM_DressupZCorrect.md)
+
+Drilling
+  # 1.  REDIRECT [CAM_Drilling](CAM_Drilling.md)
+
+EditToolsTable
+  # 1.  REDIRECT [CAM_ToolBitLibraryOpen](CAM_ToolBitLibraryOpen.md)
+
+Ellipsoid
+  # 1.  REDIRECT [Mesh_BuildRegularSolid](Mesh_BuildRegularSolid.md)
+
+Embedded_in_3rd_Party_Applications
+
+Endpoint
+  # 1.  REDIRECT [Draft_Snap_Endpoint](Draft_Snap_Endpoint.md)
+
+Engrave
+  # 1.  REDIRECT [CAM_Engrave](CAM_Engrave.md)
+
+Enhancement_Project
+
+EvaluateCurvature
+  # 1.  REDIRECT [Mesh_CurvatureInfo](Mesh_CurvatureInfo.md)
+
+EvaluateRepair
+  # 1.  REDIRECT [Mesh_Evaluation](Mesh_Evaluation.md)
+
+Exit
+  # 1.  REDIRECT [Std Quit](Std_Quit.md)
+
+ExportCAD
+  # 1.  REDIRECT [Part Export](Part_Export.md)
+
+ExportGraphviz
+  # 1.  REDIRECT [Std_DependencyGraph](Std_DependencyGraph.md)
+
+ExportTemplate
+  # 1.  REDIRECT [CAM_ExportTemplate](CAM_ExportTemplate.md)
+
+Extension : PyObjectBase
+  # This class can be imported.
+    Base class for all extensions
+
+ExtensionCascadeDimensionGroup
+
+ExtensionChamferDimensionGroup
+
+ExtensionCircleCenterLinesGroup
+
+ExtensionCreateChainDimensionGroup
+
+ExtensionCreateCoordDimensionGroup
+
+ExtensionDrawCirclesGroup
+
+ExtensionExtendShortenLineGroup
+
+ExtensionIncreaseDecreaseGroup
+
+ExtensionInsertPrefixGroup
+
+ExtensionLinePPGroup
+
+ExtensionPosChainDimensionGroup
+
+ExtensionThreadsGroup
+
+ExtentGroup
+  # 1.  REDIRECT [TechDraw_Workbench#TechDraw_ExtentGroup](TechDraw_Workbench#TechDraw_ExtentGroup.md)
+
+ExternalGeometryExtension : GeometryExtension
+  # This class can be imported.
+    Describes a ExternalGeometryExtension
+  Ref: str
+  setFlag()
+  testFlag() -> bool
+
+ExternalGeometryFacade : BaseClass
+  # This class can be imported.
+    Describes a GeometryFacade
+  Blocked: bool
+  Construction: bool
+  Geometry: Geometry
+  GeometryLayerId: int
+  Id: int
+  InternalType: str
+  Ref: str
+  Tag: str
+  deleteExtensionOfName()
+  deleteExtensionOfType()
+  getExtensionOfName() -> GeometryExtension
+  getExtensionOfType() -> GeometryExtension
+  getExtensions() -> list[GeometryExtension]
+  hasExtensionOfName() -> bool
+  hasExtensionOfType() -> bool
+  mirror()
+  rotate()
+  scale()
+  setExtension()
+  setFlag()
+  testFlag() -> bool
+  transform()
+  translate()
+
+FAQ
+  # 1.  REDIRECT [CAM_FAQ](CAM_FAQ.md)
+
+FeatureArea : DocumentObject
+  # This class handles Path Area features
+  Sources: list[DocumentObject | None]
+  WorkPlane: Shape
+  getArea() -> Area
+  setParams() -> None
+
+FeaturePathCompound : DocumentObject
+  # This class handles Path Compound features
+  addObject()
+  removeObject()
+
+FillHoles
+  # 1.  REDIRECT [Mesh_FillupHoles](Mesh_FillupHoles.md)
+
+FinishLine
+  # 1.  REDIRECT [Draft_Wire](Draft_Wire.md)
+
+Fixture
+  # 1.  REDIRECT [CAM_Fixture](CAM_Fixture.md)
+
+FreeCADAbort : BaseException
+
+FreeCADError : RuntimeError
+
+FromShapes
+  # 1.  REDIRECT [CAM_Shape](CAM_Shape.md)
+
+GcodeFromShape
+  # 1.  REDIRECT [CAM_Shape](CAM_Shape.md)
+
+GeoFeatureGroupExtension : GroupExtension
+  # This class can be imported.
+    This class handles placeable group of document objects
+
+Git
+  # 1.  REDIRECT [WebTools_Git](WebTools_Git.md)
+
+Grid
+  # 1.  REDIRECT [Draft_Snap_Grid](Draft_Snap_Grid.md)
+
+GroupExtension : DocumentObjectExtension
+  # This class can be imported.
+    Extension class which allows grouping of document objects
+  Group: list[DocumentObject]
+  addObject() -> list[DocumentObjectPy]
+  addObjects() -> list[DocumentObjectPy]
+  getObject() -> DocumentObjectPy
+  hasObject() -> bool
+  newObject() -> DocumentObjectPy
+  removeObject() -> list[DocumentObjectPy]
+  removeObjects() -> list[DocumentObjectPy]
+  removeObjectsFromDocument()
+  setObjects() -> list[DocumentObjectPy]
+
+HLRBRep_Algo : PyObjectBase
+  add()
+  hide()
+  hideAll()
+  index() -> int
+  initEdgeStatus()
+  nbShapes() -> int
+  outLinedShapeNullify()
+  partialHide()
+  remove()
+  select()
+  selectEdge()
+  selectFace()
+  setProjector(Origin: Vector, ZDir: Vector, XDir: Vector, focus: float)
+  showAll()
+  update()
+
+HLRBRep_PolyAlgo : PyObjectBase
+  Angle: float
+  TolAngular: float
+  TolCoef: float
+  index() -> int
+  initHide()
+  initShow()
+  load()
+  moreHide() -> bool
+  moreShow() -> bool
+  nbShapes() -> int
+  nextHide()
+  nextShow()
+  outLinedShape() -> Shape
+  remove()
+  setProjector(Origin: Vector, ZDir: Vector, XDir: Vector, focus: float)
+  shape() -> Shape
+  update()
+
+HLRToShapePy : PyObjectBase
+  Rg1LineHCompound() -> Shape
+  Rg1LineVCompound() -> Shape
+  RgNLineHCompound() -> Shape
+  RgNLineVCompound() -> Shape
+  compoundOfEdges(Type: int, Visible: bool, In3D: bool, Shape: Shape) -> Shape
+  hCompound() -> Shape
+  isoLineHCompound() -> Shape
+  isoLineVCompound() -> Shape
+  outLineHCompound() -> Shape
+  outLineVCompound() -> Shape
+  outLineVCompound3d() -> Shape
+  vCompound() -> Shape
+
+Helix
+  # 1.  REDIRECT [CAM_Helix](CAM_Helix.md)
+
+Help
+  # 1.  REDIRECT [Std_Help_Menu](Std_Help_Menu.md)
+
+Howto_Import_Export
+  # ** "This page is WIP. Please do not translate yet. Thank you. R-Frank" (†2017, r-frank)**
+
+Humanitarian_Projects
+
+IfcExplorer
+  # 1.  REDIRECT [BIM_IfcExplorer](BIM_IfcExplorer.md)
+
+ImportCAD
+  # 1.  REDIRECT [Part Import](Part_Import.md)
+
+IncreaseTolerance
+  # 1.  REDIRECT [OpenSCAD_IncreaseToleranceFeature](OpenSCAD_IncreaseToleranceFeature.md)
+
+Insert
+  # 1.  REDIRECT [Assembly_Workbench#Assembly_Insert](Assembly_Workbench#Assembly_Insert.md)
+
+Inspect
+  # 1.  REDIRECT [CAM_Inspect](CAM_Inspect.md)
+
+Intersection
+  # 1.  REDIRECT [Draft_Snap_Intersection](Draft_Snap_Intersection.md)
+
+Legacy
+  # 1.  REDIRECT [PartDesign_Workbench](PartDesign_Workbench.md)
+
+Link
+  # 1.  REDIRECT [Std_LinkMake](Std_LinkMake.md)
+
+LinkActions
+  # 1.  REDIRECT [Std_Base#Std_LinkActions](Std_Base#Std_LinkActions.md)
+
+LinkArray
+  # 1.  REDIRECT [Draft_OrthoArray](Draft_OrthoArray.md)
+
+LinkBaseExtension : DocumentObjectExtension
+  # This class can be imported.
+    Link extension base class
+  LinkedChildren: list[Any]
+  _ChildCache: list[DocumentObject | None]
+  _LinkOwner: int
+  _LinkTouched: bool
+  cacheChildLabel()
+  configLinkProperty()
+  expandSubname() -> str
+  flattenSubname() -> str
+  getLinkExtProperty()
+  getLinkExtPropertyName() -> str
+  getLinkPropertyInfo() -> tuple[tuple[str, str, str], Ellipsis] | tuple[str, str, str] | tuple[str, str]
+  setLink()
+
+LinkView : BaseClass
+  # This class can be imported.
+    Helper class to link to a view object
+  Count: int
+  LinkedView: object | Any
+  Owner: object | Any
+  RootNode: SoSeparator
+  SubNames: object | tuple[str, Ellipsis]
+  Visibilities: object | tuple[bool, Ellipsis]
+  getBoundBox() -> BoundBox
+  getChildren() -> tuple[Any, Ellipsis]
+  getDetailPath() -> SoDetail
+  getElementPicked() -> str
+  reset()
+  setChildren()
+  setLink()
+  setMaterial()
+  setTransform()
+  setType()
+
+MainWindowPy : QMainWindow
+  # Python binding class for the MainWindow class
+  mainWindowClosed: Signal[__MainWindow_mainWindowClosed_0]
+  timeEvent: Signal[__MainWindow_timeEvent_0]
+  windowStateChanged: Signal[__MainWindow_windowStateChanged_0 | __MainWindow_windowStateChanged_1]
+  workbenchActivated: Signal[__MainWindow_workbenchActivated_0 | __MainWindow_workbenchActivated_1]
+  addWindow() -> MDIViewPyWrap | None
+  getActiveWindow() -> MDIView | None
+  getWindows() -> list[Any]
+  getWindowsOfType() -> list[Any]
+  removeWindow() -> None
+  setActiveWindow() -> None
+
+MakeCompound
+  # 1.  REDIRECT [Part Compound](Part_Compound.md)
+
+MakeIfcSpreadsheet
+  # 1.  REDIRECT [Arch_IfcSpreadsheet](Arch_IfcSpreadsheet.md)
+
+Managing_Expectations
+
+Measure_Menu
+  # 1.  REDIRECT [Part_Workbench#Measure](Part_Workbench#Measure.md)
+
+Measure_Toggle_3d
+  # 1.  REDIRECT [Part_Measure_Toggle_3D](Part_Measure_Toggle_3D.md)
+
+MergeProject
+  # 1.  REDIRECT [Std_MergeProjects](Std_MergeProjects.md)
+
+Metadata : PyObjectBase
+  Author: list[ReturnGetAuthorDict]
+  Classname: str
+  Conflict: list[Any]
+  Content: dict[Any, list[Metadata]]
+  Date: str
+  Depend: list[Any]
+  Description: str
+  File: list[str]
+  FreeCADMax: str
+  FreeCADMin: str
+  Icon: str
+  License: list[ReturnGetLicenseDict]
+  Maintainer: list[ReturnGetMaintainerDict]
+  Name: str
+  PythonMin: str
+  Replace: list[Any]
+  Subdirectory: str
+  Tag: list[str]
+  Type: str
+  Urls: list[ReturnGetUrlsDict]
+  Version: str
+  addAuthor() -> None
+  addConflict() -> None
+  addContentItem() -> None
+  addDepend() -> None
+  addFile() -> None
+  addLicense() -> None
+  addMaintainer() -> None
+  addReplace() -> None
+  addTag() -> None
+  addUrl() -> None
+  getFirstSupportedFreeCADVersion() -> str | None
+  getGenericMetadata() -> list[ReturnGetGenericMetadataDict]
+  getLastSupportedFreeCADVersion() -> str | None
+  removeAuthor() -> None
+  removeConflict() -> None
+  removeContentItem() -> None
+  removeDepend() -> None
+  removeFile() -> None
+  removeLicense() -> None
+  removeMaintainer() -> None
+  removeReplace() -> None
+  removeTag() -> None
+  removeUrl() -> None
+  supportsCurrentFreeCAD() -> bool
+  write() -> None
+
+Midpoint
+  # 1.  REDIRECT [Draft_Snap_Midpoint](Draft_Snap_Midpoint.md)
+
+MillFace
+  # 1.  REDIRECT [CAM_MillFace](CAM_MillFace.md)
+
+Model : BaseClass
+  # This class can be imported.
+    Material model descriptions.
+  DOI: str
+  Description: str
+  Directory: str
+  Inherited: list
+  LibraryIcon: str
+  LibraryName: str
+  LibraryRoot: str
+  Name: str
+  Properties: dict
+  URL: str
+  UUID: str
+
+ModelManager : BaseClass
+  # This class can be imported.
+    Material model descriptions.
+  ModelLibraries: list
+  Models: dict
+  getModel()
+  getModelByPath()
+
+Module
+  # 1.  REDIRECT [Arch_Workbench](Arch_Workbench.md)
+
+Near
+  # 1.  REDIRECT [Draft_Snap_Near](Draft_Snap_Near.md)
+
+NewAnnotation
+  # 1.  REDIRECT [TechDraw_Annotation](TechDraw_Annotation.md)
+
+NewArch
+  # 1.  REDIRECT [TechDraw_ArchView](TechDraw_ArchView.md)
+
+NewDetail
+  # 1.  REDIRECT [TechDraw_DetailView](TechDraw_DetailView.md)
+
+NewDraft
+  # 1.  REDIRECT [TechDraw_DraftView](TechDraw_DraftView.md)
+
+NewMulti
+  # 1.  REDIRECT [TechDraw_ProjectionGroup](TechDraw_ProjectionGroup.md)
+
+NewProjGroup
+  # 1.  REDIRECT [TechDraw_ProjectionGroup](TechDraw_ProjectionGroup.md)
+
+NewSection
+  # 1.  REDIRECT [TechDraw_SectionView](TechDraw_SectionView.md)
+
+New_Default
+  # 1.  REDIRECT [TechDraw_PageDefault](TechDraw_PageDefault.md)
+
+New_Pick
+  # 1.  REDIRECT [TechDraw_PageTemplate](TechDraw_PageTemplate.md)
+
+OCCConstructionError : OCCDomainError
+
+OCCDimensionError : OCCDomainError
+
+OCCDomainError : OCCError
+
+OCCError : FreeCADError
+
+OCCRangeError : OCCDomainError
+
+OffsetCurve : Curve
+  # This class can be imported.
+  BasisCurve: Curve
+  OffsetDirection: Vector
+  OffsetValue: float
+
+OffsetSurface : GeometrySurface
+  # This class can be imported.
+  BasisSurface: GeometrySurface
+  OffsetValue: float
+
+OpActive
+  # 1.  REDIRECT [CAM_OpActiveToggle](CAM_OpActiveToggle.md)
+
+OpActiveToggle
+  # 1.  REDIRECT [CAM_OpActiveToggle](CAM_OpActiveToggle.md)
+
+OriginGroupExtension : GeoFeatureGroupExtension
+
+Ortho
+  # 1.  REDIRECT [Draft_Snap_Ortho](Draft_Snap_Ortho.md)
+
+OutputStderr
+  # Redirection of stdout to FreeCAD's report view
+  flush() -> None
+  isatty() -> bool
+  write() -> None
+
+OutputStdout
+  # Redirection of stdout to FreeCAD's report view
+  flush() -> None
+  isatty() -> bool
+  write() -> None
+
+Parallel
+  # 1.  REDIRECT [Draft_Snap_Parallel](Draft_Snap_Parallel.md)
+
+ParserError : FreeCADError
+
+Paste
+  # 1.  REDIRECT [Sketcher_Workbench#Sketcher_Paste](Sketcher_Workbench#Sketcher_Paste.md)
+
+Perpendicular
+  # 1.  REDIRECT [Draft_Snap_Perpendicular](Draft_Snap_Perpendicular.md)
+
+Philanthropy_Open_Source_Hardware
+
+PlateSurface : GeometrySurface
+  # This class can be imported.
+  makeApprox(Tol3d: float, MaxSegments: int, MaxDegree: int, MaxDistance: float, CritOrder: int, Continuity: str, EnlargeCoeff: float) -> BSplineSurface
+
+Point : Geometry
+  X: float
+  Y: float
+  Z: float
+  toShape() -> Vertex
+
+Points : ComplexGeoData
+  CountPoints: int
+  Points: list[Vector]
+  addPoints()
+  copy() -> Points
+  fromSegment() -> Points
+  fromValid() -> Points
+  read()
+  write()
+  writeInventor() -> str
+
+PolyHLRToShapePy : PyObjectBase
+  Rg1LineHCompound() -> Shape
+  Rg1LineVCompound() -> Shape
+  RgNLineHCompound() -> Shape
+  RgNLineVCompound() -> Shape
+  hCompound() -> Shape
+  hide()
+  outLineHCompound() -> Shape
+  outLineVCompound() -> Shape
+  show()
+  update()
+  vCompound() -> Shape
+
+Polyline
+  # 1.  REDIRECT [Draft_Wire](Draft_Wire.md)
+
+Preferences
+  # 1.  REDIRECT [BIM_Preferences](BIM_Preferences.md)
+
+Probe
+  # 1.  REDIRECT [CAM_Probe](CAM_Probe.md)
+
+ProgressIndicator
+  # This class can be imported.
+    Progress indicator
+  next() -> None
+  start() -> None
+  stop() -> None
+
+Project
+  # 1.  REDIRECT [CAM_Job](CAM_Job.md)
+
+ProjectUtility
+  # 1.  REDIRECT [Std_ProjectUtil](Std_ProjectUtil.md)
+
+PyObjectBase
+
+PyResource
+  # PyResource
+  connect()
+  setValue() -> None
+  show() -> None
+  value() -> list | str | float | bool | int | None
+
+PythonDebugExcept
+  # Custom exception handler
+  fc_excepthook() -> None
+
+PythonDebugStderr
+  # Redirection of stderr to FreeCAD's Python debugger window
+  write() -> None
+
+PythonDebugStdout
+  # Redirection of stdout to FreeCAD's Python debugger window
+  flush() -> None
+  write() -> None
+
+PythonStderr
+  # Redirection of stdout to FreeCAD's Python console window
+  flush() -> None
+  isatty() -> bool
+  write() -> None
+
+PythonStdin
+  # Redirection of stdin to FreeCAD to open an input dialog
+  readline() -> str
+
+PythonStdout
+  # Redirection of stdout to FreeCAD's Python console window
+  flush() -> None
+  isatty() -> bool
+  write() -> None
+
+PythonWorkbench : WorkbenchC
+  # This is the class for Python workbenches
+  AppendCommandbar()
+  AppendContextMenu()
+  AppendMenu()
+  AppendToolbar()
+  ListCommandbars()
+  ListMenus()
+  ListToolbars()
+  RemoveCommandbar()
+  RemoveContextMenu()
+  RemoveMenu()
+  RemoveToolbar()
+  appendCommandbar()
+  appendContextMenu()
+  appendMenu()
+  appendToolbar()
+  removeCommandbar()
+  removeContextMenu()
+  removeMenu()
+  removeToolbar()
+
+RebarTools
+  # 1.  REDIRECT [BIM_Workbench#Arch_RebarTools](BIM_Workbench#Arch_RebarTools.md)
+
+Rebar_BOM
+  # 1.  REDIRECT [Reinforcement_BillOfMaterial](Reinforcement_BillOfMaterial.md)
+
+Rebar_BeamReinforcement
+  # 1.  REDIRECT [Reinforcement_BeamRebars](Reinforcement_BeamRebars.md)
+
+Rebar_BentShape
+  # 1.  REDIRECT [Reinforcement_BentShapeRebar](Reinforcement_BentShapeRebar.md)
+
+Rebar_Circular_ColumnReinforcement
+  # 1.  REDIRECT [Reinforcement_ColumnRebars_Circular](Reinforcement_ColumnRebars_Circular.md)
+
+Rebar_ColumnReinforcement
+  # 1.  REDIRECT [Reinforcement_ColumnRebars](Reinforcement_ColumnRebars.md)
+
+Rebar_ColumnReinforcement_TwoTiesSixRebars
+
+Rebar_Dimensioning
+
+Rebar_Drawing
+
+Rebar_Drawing_Dimensioning
+  # 1.  REDIRECT [Reinforcement_DrawingDimensioning](Reinforcement_DrawingDimensioning.md)
+
+Rebar_Footing_Reinforcement
+  # 1.  REDIRECT [Reinforcement_FootingRebars](Reinforcement_FootingRebars.md)
+
+Rebar_Helical
+  # 1.  REDIRECT [Reinforcement_HelicalRebar](Reinforcement_HelicalRebar.md)
+
+Rebar_LShape
+  # 1.  REDIRECT [Reinforcement_LShapeRebar](Reinforcement_LShapeRebar.md)
+
+Rebar_Slab_Reinforcement
+  # 1.  REDIRECT [Reinforcement_SlabRebars](Reinforcement_SlabRebars.md)
+
+Rebar_Stirrup
+  # 1.  REDIRECT [Reinforcement_StirrupRebar](Reinforcement_StirrupRebar.md)
+
+Rebar_Straight
+  # 1.  REDIRECT [Reinforcement_StraightRebar](Reinforcement_StraightRebar.md)
+
+Rebar_UShape
+  # 1.  REDIRECT [Reinforcement_UShapeRebar](Reinforcement_UShapeRebar.md)
+
+RectangularTrimmedSurface : GeometrySurface
+  BasisSurface: GeometrySurface
+  setTrim()
+
+Redraw
+  # 1.  REDIRECT [TechDraw_RedrawPage](TechDraw_RedrawPage.md)
+
+Reorient
+  # 1.  REDIRECT [Sketcher_ReorientSketch](Sketcher_ReorientSketch.md)
+
+ReverseShapes
+  # 1.  REDIRECT [Part_ReverseShape](Part_ReverseShape.md)
+
+Roadmap
+
+Robot6Axis : Persistence
+  # This class can be imported.
+    Robot6Axis class
+  Axis1: float
+  Axis2: float
+  Axis3: float
+  Axis4: float
+  Axis5: float
+  Axis6: float
+  Base: object
+  Tcp: Placement
+  check()
+
+RobotObject : DocumentObject
+  # Robot document object
+  Axis1: float
+  Axis2: float
+  Axis3: float
+  Axis4: float
+  Axis5: float
+  Axis6: float
+  Base: Placement
+  Error: str
+  Home: list[float]
+  RobotKinematicFile: str
+  RobotVrmlFile: str
+  Tcp: Placement
+  Tool: Placement
+  ToolBase: Placement
+  ToolShape: DocumentObject | None
+  getRobot()
+
+Sanity
+  # 1.  REDIRECT [CAM_Sanity](CAM_Sanity.md)
+
+SaveDXF
+  # 1.  REDIRECT [TechDraw_ExportPageDXF](TechDraw_ExportPageDXF.md)
+
+SaveSVG
+  # 1.  REDIRECT [TechDraw_ExportPageSVG](TechDraw_ExportPageSVG.md)
+
+SaveaCopy
+  # 1.  REDIRECT [Std_SaveCopy](Std_SaveCopy.md)
+
+SectionCross
+  # 1.  REDIRECT [Part_CrossSections](Part_CrossSections.md)
+
+SectionExamples
+  # 1.  REDIRECT [TechDraw Section Examples](TechDraw_Section_Examples.md)
+
+SectionGroup
+
+Select
+  # 1.  REDIRECT [Selection_methods](Selection_methods.md)
+
+SelectLoop
+  # 1.  REDIRECT [CAM_SelectLoop](CAM_SelectLoop.md)
+
+SetWorkingPlaneProxy
+  # 1.  REDIRECT [Draft_WorkingPlaneProxy](Draft_WorkingPlaneProxy.md)
+
+Sheet : DocumentObject
+  # With this object you can manipulate spreadsheets
+  cells: Sheet
+  columnWidths: PropertyColumnWidths
+  rowHeights: PropertyRowHeights
+  clear()
+  clearAll()
+  exportFile() -> bool
+  get() -> tuple[Property, Ellipsis] | Property
+  getAlias() -> str
+  getAlignment() -> Any | None
+  getBackground() -> tuple[float, float, float, float] | None
+  getCellFromAlias() -> str
+  getColumnWidth() -> int
+  getContents() -> str
+  getDisplayUnit() -> str
+  getForeground() -> tuple[float, float, float, float] | None
+  getNonEmptyCells() -> list[str]
+  getNonEmptyRange() -> tuple[str, str]
+  getRowHeight() -> int
+  getStyle() -> Any | None
+  getUsedCells() -> list[str]
+  getUsedRange() -> tuple[str, str]
+  importFile() -> bool
+  insertColumns()
+  insertRows()
+  mergeCells()
+  recomputeCells()
+  removeColumns()
+  removeRows()
+  set()
+  setAlias()
+  setAlignment()
+  setBackground()
+  setColumnWidth()
+  setDisplayUnit()
+  setForeground()
+  setRowHeight()
+  setStyle()
+  splitCell()
+  touchCells()
+
+SheetViewPy
+  # Python binding class for the Sheet view class
+  cast_to_base()
+  currentIndex() -> str
+  getSheet() -> Sheet
+  select() -> None
+  selectedCells() -> list[str]
+  selectedRanges() -> list[str]
+  setCurrentIndex() -> None
+
+SimpleCopy
+  # 1.  REDIRECT [CAM_SimpleCopy](CAM_SimpleCopy.md)
+
+Simulator
+  # 1.  REDIRECT [CAM_Simulator](CAM_Simulator.md)
+
+Slot
+  # 1.  REDIRECT [CAM_Slot](CAM_Slot.md)
+
+Smooth
+  # 1.  REDIRECT [Mesh_Smoothing](Mesh_Smoothing.md)
+
+SoQtOffscreenRenderer
+  # This class can be imported.
+    Python interface for SoQtOffscreenRenderer
+
+Special
+  # 1.  REDIRECT [Draft_Snap_Special](Draft_Snap_Special.md)
+
+Spreadsheet
+  # 1.  REDIRECT [TechDraw_SpreadsheetView](TechDraw_SpreadsheetView.md)
+
+StackGroup
+  # 1.  REDIRECT [TechDraw_Workbench#TechDraw_StackGroup](TechDraw_Workbench#TechDraw_StackGroup.md)
+
+StdMeshers_Arithmetic1D
+  # StdMeshers_Arithmetic1D
+  getLength() -> float
+  setLength() -> None
+
+StdMeshers_AutomaticLength
+  # StdMeshers_AutomaticLength
+  getFineness() -> float
+  getLength() -> float
+  setFineness() -> None
+
+StdMeshers_CompositeSegment_1D
+  # StdMeshers_CompositeSegment_1D
+
+StdMeshers_Deflection1D
+  # StdMeshers_Deflection1D
+  setDeflection() -> None
+
+StdMeshers_Hexa_3D
+  # StdMeshers_Hexa_3D
+
+StdMeshers_LayerDistribution
+  # StdMeshers_LayerDistribution
+  getLayerDistribution() -> None
+  setLayerDistribution() -> None
+
+StdMeshers_LengthFromEdges
+  # StdMeshers_LengthFromEdges
+  getMode() -> int
+  setMode() -> None
+
+StdMeshers_LocalLength
+  # StdMeshers_LocalLength
+  getLength() -> float
+  getPrecision() -> float
+  setLength() -> None
+  setPrecision() -> None
+
+StdMeshers_MEFISTO_2D
+  # StdMeshers_MEFISTO_2D
+
+StdMeshers_MaxElementArea
+  # StdMeshers_MaxElementArea
+  getMaxArea() -> float
+  setMaxArea() -> None
+
+StdMeshers_MaxElementVolume
+  # StdMeshers_MaxElementVolume
+  getMaxVolume() -> float
+  setMaxVolume() -> None
+
+StdMeshers_MaxLength
+  # StdMeshers_MaxLength
+  getLength() -> float
+  getPreestimatedLength() -> float
+  getUsePreestimatedLength() -> bool
+  havePreestimatedLength() -> bool
+  setLength() -> None
+  setPreestimatedLength() -> None
+  setUsePreestimatedLength() -> None
+
+StdMeshers_NotConformAllowed
+  # StdMeshers_NotConformAllowed
+
+StdMeshers_NumberOfLayers
+  # StdMeshers_NumberOfLayers
+  getNumberOfLayers() -> int
+  setNumberOfLayers() -> None
+
+StdMeshers_NumberOfSegments
+  # StdMeshers_NumberOfSegments
+  getNumberOfSegments() -> int
+  setNumberOfSegments() -> None
+
+StdMeshers_Prism_3D
+  # StdMeshers_Prism_3D
+
+StdMeshers_ProjectionSource1D
+  # StdMeshers_ProjectionSource1D
+
+StdMeshers_ProjectionSource2D
+  # StdMeshers_ProjectionSource2D
+
+StdMeshers_ProjectionSource3D
+  # StdMeshers_ProjectionSource3D
+
+StdMeshers_Projection_1D
+  # StdMeshers_Projection_1D
+
+StdMeshers_Projection_2D
+  # StdMeshers_Projection_2D
+
+StdMeshers_Projection_3D
+  # StdMeshers_Projection_3D
+
+StdMeshers_QuadranglePreference
+  # StdMeshers_QuadranglePreference
+
+StdMeshers_Quadrangle_2D
+  # StdMeshers_Quadrangle_2D
+
+StdMeshers_QuadraticMesh
+  # StdMeshers_QuadraticMesh
+
+StdMeshers_RadialPrism_3D
+  # StdMeshers_RadialPrism_3D
+
+StdMeshers_Regular_1D
+  # StdMeshers_Regular_1D
+
+StdMeshers_SegmentAroundVertex_0D
+  # StdMeshers_SegmentAroundVertex_0D
+
+StdMeshers_SegmentLengthAroundVertex
+  # StdMeshers_SegmentLengthAroundVertex
+  getLength() -> float
+  setLength() -> None
+
+StdMeshers_StartEndLength
+  # StdMeshers_StartEndLength
+  getLength() -> float
+  setLength() -> None
+
+StdMeshers_TrianglePreference
+  # StdMeshers_TrianglePreference
+
+StdMeshers_UseExisting_1D
+  # StdMeshers_UseExisting_1D
+
+StdMeshers_UseExisting_2D
+  # StdMeshers_UseExisting_2D
+
+StepShape : PyObjectBase
+  read()
+
+Stop
+  # 1.  REDIRECT [CAM_Stop](CAM_Stop.md)
+
+StringHasher : BaseClass
+  # This class can be imported.
+    This is the StringHasher class
+  Count: int
+  SaveAll: bool
+  Size: int
+  Table: dict[int, str]
+  Threshold: int
+  getID() -> Any | StringID
+  isSame() -> bool
+
+StringID : BaseClass
+  # This class can be imported.
+    This is the StringID class
+  Data: str
+  Index: int
+  IsBinary: bool
+  IsHashed: bool
+  Related: list[int]
+  Value: int
+  isSame() -> bool
+
+TextLeader
+  # 1.  REDIRECT [TechDraw_RichTextAnnotation](TechDraw_RichTextAnnotation.md)
+
+Toggle
+  # 1.  REDIRECT [TechDraw_ToggleFrame](TechDraw_ToggleFrame.md)
+
+ToggleSnap
+  # 1.  REDIRECT [Draft_Snap_Lock](Draft_Snap_Lock.md)
+
+Toroid : GeometrySurface
+  # This class can be imported.
+    Describes a toroid in 3D space
+  Area: float
+  Axis: Vector
+  Center: Vector
+  MajorRadius: float
+  MinorRadius: float
+  Volume: float
+
+Trajectory : Persistence
+  # This class can be imported.
+    Trajectory class
+  Duration: float
+  Length: float
+  Waypoints: list[Waypoint]
+  deleteLast() -> Trajectory
+  insertWaypoints() -> Trajectory
+  position() -> Placement
+  velocity() -> float
+
+Transform
+  # 1.  REDIRECT [Std_TransformManip](Std_TransformManip.md)
+
+TreeViewActions
+  # 1.  REDIRECT [Std_TreeSyncView](Std_TreeSyncView.md)
+
+TrimMesh
+  # 1.  REDIRECT [Mesh_PolyTrim](Mesh_PolyTrim.md)
+
+TrimMeshWithPlane
+  # 1.  REDIRECT [Mesh_TrimByPlane](Mesh_TrimByPlane.md)
+
+TrimmedCurve : BoundedCurve
+  # The abstract class TrimmedCurve is the root class of all trimmed curve objects.
+  setParameterRange()
+
+UUIDs : BaseClass
+  # This class can be imported.
+    Material model UUID identifiers.
+  AdvancedRendering: str
+  Architectural: str
+  ArchitecturalRendering: str
+  BasicRendering: str
+  Costs: str
+  Density: str
+  Electromagnetic: str
+  Father: str
+  Fluid: str
+  IsotropicLinearElastic: str
+  LinearElastic: str
+  MaterialStandard: str
+  OgdenYld2004p18: str
+  OrthotropicLinearElastic: str
+  RenderAppleseed: str
+  RenderCarpaint: str
+  RenderCycles: str
+  RenderDiffuse: str
+  RenderDisney: str
+  RenderEmission: str
+  RenderGlass: str
+  RenderLuxcore: str
+  RenderLuxrender: str
+  RenderMixed: str
+  RenderOspray: str
+  RenderPbrt: str
+  RenderPovray: str
+  RenderSubstancePBR: str
+  RenderTexture: str
+  RenderWB: str
+  TestModel: str
+  TextureRendering: str
+  Thermal: str
+  VectorRendering: str
+
+UndoLine
+  # 1.  REDIRECT [Draft_Wire](Draft_Wire.md)
+
+Union
+  # 1.  REDIRECT [Part_Fuse](Part_Fuse.md)
+
+UnknownProgramOption : BaseException
+
+Updates
+
+Vcarve
+  # 1.  REDIRECT [CAM_Vcarve](CAM_Vcarve.md)
+
+ViewGroup : DocumentObjectGroup
+  # This class is a group subclass for joints.
+
+Walkthrough_for_the_Impatient
+  # 1.  REDIRECT [CAM_Walkthrough_for_the_Impatient](CAM_Walkthrough_for_the_Impatient.md)
+
+Waterline
+  # 1.  REDIRECT [CAM_Waterline](CAM_Waterline.md)
+
+Waypoint : Persistence
+  # This class can be imported.
+    Waypoint class
+  Base: int
+  Cont: bool
+  Name: str
+  Pos: Placement
+  Tool: int
+  Type: str
+  Velocity: float
+
+WorkingPlane
+  # 1.  REDIRECT [Draft_Snap_WorkingPlane](Draft_Snap_WorkingPlane.md)
+
+XMLAttributeError : XMLBaseException
+
+XMLBaseException : Exception
+
+XMLParseException : XMLBaseException
+
+__MDIView_message_0 : Protocol
+
+__MDIView_message_1 : Protocol
+
+__MDIView_message_2 : Protocol
+
+__MainWindow_mainWindowClosed_0 : Protocol
+
+__MainWindow_timeEvent_0 : Protocol
+
+__MainWindow_windowStateChanged_0 : Protocol
+
+__MainWindow_windowStateChanged_1 : Protocol
+
+__MainWindow_workbenchActivated_0 : Protocol
+
+__MainWindow_workbenchActivated_1 : Protocol
+
+and_DWG_Import
+  # {{Fake heading|sub=4|< Back to [[FreeCAD Howto Import Export]]}}
+
+experimental
+  # 1.  REDIRECT [CAM_experimental](CAM_experimental.md)
+
+fourth_axis
+  # 1.  REDIRECT [CAM_fourth_axis](CAM_fourth_axis.md)
+
+manual_converter
+  # 1.  REDIRECT [FreeCAD Manual Converter](FreeCAD_Manual_Converter.md)
+
+on_video
+  # 1.  REDIRECT [FreeCAD_on_Video](FreeCAD_on_Video.md)
+
+panel_tutorial
+
+reference
+  # 1.  REDIRECT [Sketcher_Lecture](Sketcher_Lecture.md)
+
+scripting
+  # 1.  REDIRECT [CAM_scripting](CAM_scripting.md)
+
+tutorial
+  # ![](images/Arch_tutorial_00.jpg )
+
+used_in_production
